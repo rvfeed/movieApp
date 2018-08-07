@@ -1,0 +1,29 @@
+<div class="card col-sm-2" style= "text-align: left;">
+  <form [formGroup] = "myForm" novalidate (ngSubmit)="save()" >
+  <div class="form-group">
+  <label for="movieName">
+    <input type="text" formControlName="movieName" id="movieName"/>
+  </label>
+  </div>
+   <div class="form-group">
+  <label for="rating">
+    <input type="text" formControlName="rating" id="rating"/>
+  </label>
+  </div>
+   <div class="form-group">
+  <label for="director">
+    <input type="text" formControlName="director" id="director"/>
+  </label>
+  </div>
+   <div class="form-group">
+  <label for="cast">
+    <input type="text" formControlName="cast" id="cast"/>
+  </label>
+  </div>
+    <div class="form-group">
+  <label for="save">
+    <input type="submit" class="btn btn-primary" value="Save"  id="save"/>
+  </label>
+  </div>
+</form>
+</div>
