@@ -1,6 +1,28 @@
-<br/><div class="card col"  *ngFor="let movieDetails of movieList" style= "text-align: left;">
-  <p>Movie: {{movieDetails?.movieName}}</p>
-  <p>Rating: {{movieDetails?.rating}}</p>
-  <p> Director: {{movieDetails?.director}}</p>
-  <p>Cast:{{movieDetails?.cast}}</p> 
+<br/>
+<div [ngClass]="{'alert-success':msg.success, 'alert-danger':!msg.success}">{{msg.message}}</div>
+<div class="card col"  *ngFor="let movieDetails of movieList" style= "text-align: left;">
+  <div> <button type="button" on-click="deleteMovie(movieDetails?._id)" class="close" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button> 
+</div>{{isEdit}}
+
+<ng-template #editTemp>
+  <a  on-click="updateMovie(movieDetails?._id)">save</a><a>cancel</a>
+  <form >
+    <p>Movie: <input type="text" name="movieName" [(ngModel)]="myForm.movieName" [value]='movieDetails?.movieName' /></p>
+    <p>Rating:   <select id="rating" name="rating" [(ngModel)]="myForm.rating">      
+        <option *ngFor="let rate of ratings" bind-value="rate">{{rate}}</option>
+      </select>
+    <p> Director: <input type="text" name="director" [(ngModel)]="myForm.director" value='{{movieDetails?.director}}' /></p>
+    <p>Cast:<input type="text" name="cast" [(ngModel)]="myForm.cast" [value]='movieDetails?.cast' /></p>
+  </form>
+  </ng-template>
+<div *ngIf="isEdit else editTemp">
+  <a  on-click="enableEdit(movieDetails?._id)" class="fa fa-pencil"> </a> 
+    <p>Movie: {{movieDetails?.movieName}}</p>
+    <p>Rating: {{movieDetails?.rating}}</p>
+    <p> Director: {{movieDetails?.director}}</p>
+    <p>Cast:{{movieDetails?.cast}}</p> 
+  </div>
+
 </div>

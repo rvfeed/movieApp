@@ -1,29 +1,41 @@
-<div class="card col-sm-2" style= "text-align: left;">
+<div class="col-sm-4">
   <form [formGroup] = "myForm" novalidate (ngSubmit)="save()" >
   <div class="form-group">
-  <label for="movieName">
-    <input type="text" formControlName="movieName" id="movieName"/>
-  </label>
+  <label for="movieName">Movie Name</label>
+<!--  valid: {{movieName.valid}}
+ invalid:  {{movieName.invalid}}
+ touched: {{movieName.touched}}
+  untouched: {{movieName.untouched}}
+  pristine: {{movieName.pristine}}
+  dirty: {{movieName.dirty}}
+  {{isClicked}}-->
+    <input type="text" class="form-control" required
+     bind-ngClass="{'alert-danger': (!movieName.valid && (movieName.touched || isClicked))}" 
+     formControlName="movieName" id="movieName"/>  
+  </div>
+   <div class="form-group"  bind-ngClass="{'alert-danger': (!rating.valid && (rating.dirty || rating.touched || isClicked))}">
+  <label for="rating">Rating</label>
+    <select class="form-control" formControlName="rating" id="rating">
+      <option value="">Select Rating</option>
+      <option *ngFor="let rate of ratings" bind-value="rate">{{rate}}</option>
+    </select>
+  
   </div>
    <div class="form-group">
-  <label for="rating">
-    <input type="text" formControlName="rating" id="rating"/>
-  </label>
+  <label for="director">Director</label>
+    <input type="text" class="form-control" bind-ngClass="{'alert-danger': (!director.valid && (director.touched || isClicked))}" formControlName="director" id="director"/>
+ 
   </div>
    <div class="form-group">
-  <label for="director">
-    <input type="text" formControlName="director" id="director"/>
-  </label>
+  <label for="cast">Cast</label>
+    <input type="text" class="form-control" bind-ngClass="{'alert-danger': (!cast.valid && (cast.touched || isClicked))}" formControlName="cast" id="cast"/>
+  
   </div>
-   <div class="form-group">
-  <label for="cast">
-    <input type="text" formControlName="cast" id="cast"/>
-  </label>
-  </div>
-    <div class="form-group">
-  <label for="save">
+    <div class="form-group">  
     <input type="submit" class="btn btn-primary" value="Save"  id="save"/>
-  </label>
+    <input type="reset" class="btn btn-primary" value="Reset" on-click="reset()"  id="reset"/>
+  
   </div>
 </form>
+<div [ngClass]="{'alert-success':msg.success, 'alert-danger':!msg.success}">{{msg.message}}</div>
 </div>

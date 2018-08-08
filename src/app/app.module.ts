@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { RatingComponent } from './rating/rating.component';
 import { RatingFormComponent } from './rating-form/rating-form.component';
 import {MovieService } from "./services/movie.service";
+import {APP_CONFIG, AppConfig} from "./app.config"
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import {MovieService } from "./services/movie.service";
     FormsModule,
     HttpClientModule
   ],
-  providers: [MovieService],
+  providers: [MovieService, {provide: APP_CONFIG, useValue: AppConfig}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

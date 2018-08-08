@@ -1,9 +1,10 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, Inject } from '@angular/core';
 import { ReactiveFormsModule,
   FormsModule,FormGroup,FormControl, Validators } from'@angular/forms'
 import { MovieRating } from "../lib/rating.class"
 import {MovieService } from "../services/movie.service";
 import {HttpClient} from '@angular/common/http';
+import {APP_CONFIG, IAppConfig} from "../app.config";
 @Component({
   selector: 'app-rating-form',
   templateUrl: './rating-form.component.html',
@@ -13,28 +14,53 @@ import {HttpClient} from '@angular/common/http';
 export class RatingFormComponent implements OnInit {
 myForm: FormGroup;
 movies: Array<MovieRating>;
+msg: any = {};
+ratings: Number[] = [1,2,3,4,5,7,8,9,10];
+movieName: FormControl;
+rating: FormControl;
+director: FormControl;
+cast: FormControl;
+isClicked: boolean = false; 
 @Output() movieOut: any = new EventEmitter<MovieRating>()
-  constructor(private movieSer: MovieService, private http: HttpClient) { }
+  constructor(private movieSer: MovieService, private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig) { }
 
   ngOnInit() {
+    this.movieName = new FormControl("", Validators.required);
+     this.rating = new FormControl("", Validators.required);
+      this.director = new FormControl("", Validators.required);
+      this.cast = new FormControl("", Validators.required);
     this.myForm = new FormGroup({
-      movieName: new FormControl("", Validators.required),
-      rating: new FormControl("", Validators.required),
-      director: new FormControl("", Validators.required),
-      cast: new FormControl("", Validators.required),
-
-    })
+      movieName: this.movieName,
+      rating: this.rating,
+      director: this.director,
+      cast: this.cast
+    });
+    //this.myForm.valueChanges.subscribe( d => console.log(d))
   }
-  save(){
-    if(this.myForm.valid){
-   //   this.movieSer.changeMessage(this.myForm.value);   
-   this.http.post("http://localhost:9090/movies", {movie: this.myForm.value}).subscribe( movies => console.log(movies));
- 
+  save(){  console.log(this.myForm)
+    this.isClicked = true;
+    if(this.myForm.valid){    
+    this.http.post(this.config.apiEindPoint+"/movies", {movie: this.myForm.value})
+                .subscribe( (res: any) => {
+                    this.msg.success = res.success;
+                    this.msg.message = res.message;
+                    if(this.msg.success){
+                      this.movieSer.addMovie(this.myForm.value);
+                      this.reset();                     
+                    }
+                });
+      
      // this.movieOut.emit(this.myForm.value); 
     }else{
        console.log("not valid!")
-    }
+    }    
+  }
+  edit(id){
     
+  }
+  reset(){
+    this.myForm.reset();
+     this.isClicked = false;
   }
   }
 
