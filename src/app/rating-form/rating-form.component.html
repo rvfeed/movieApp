@@ -2,13 +2,6 @@
   <form [formGroup] = "myForm" novalidate (ngSubmit)="save()" >
   <div class="form-group">
   <label for="movieName">Movie Name</label>
-<!--  valid: {{movieName.valid}}
- invalid:  {{movieName.invalid}}
- touched: {{movieName.touched}}
-  untouched: {{movieName.untouched}}
-  pristine: {{movieName.pristine}}
-  dirty: {{movieName.dirty}}
-  {{isClicked}}-->
     <input type="text" class="form-control" required
      bind-ngClass="{'alert-danger': (!movieName.valid && (movieName.touched || isClicked))}" 
      formControlName="movieName" id="movieName"/>  

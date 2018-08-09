@@ -1,4 +1,5 @@
-import { Component, OnInit, SimpleChanges, Input, Output, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, SimpleChanges,
+  Input, EventEmitter, Output, ViewChild, Inject } from '@angular/core';
 import { MovieRating } from "../lib/rating.class";
 import {MovieService } from "../services/movie.service";
 import {HttpClient} from '@angular/common/http';
@@ -11,7 +12,8 @@ import { FormGroup,FormControl, Validators } from'@angular/forms'
   styleUrls: ['./rating.component.css']   
 })
 export class RatingComponent implements OnInit {
- @Input("movieList") movieDetails:MovieRating; 
+ @Input("movieList") movieDetails:MovieRating;
+ @Output() deleteMovie : EventEmitter<MovieRating> = new EventEmitter<MovieRating>()
  ratings: Number[] = [1,2,3,4,5,7,8,9,10];
  isEdit: boolean = true;
  msg: any = {};
@@ -30,12 +32,9 @@ constructor(private movieSer: MovieService,
   }
   ngdoCheck(){    
   }
-  deleteMovie(id){
-  this.http.delete(this.config.apiEindPoint+"/movie/"+id)
-                  .subscribe((res: any) => {                    
-                      let {success, message}  = res;
-                      this.msg = {success, message};                     
-                  });
+  delete(id){
+    console.log(id)
+    this.deleteMovie.emit(id);
   }
   updateMovie(id){
     delete this.myForm["_id"]

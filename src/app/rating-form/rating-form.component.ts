@@ -8,8 +8,7 @@ import {APP_CONFIG, IAppConfig} from "../app.config";
 @Component({
   selector: 'app-rating-form',
   templateUrl: './rating-form.component.html',
-  styleUrls: ['./rating-form.component.css']
-  
+  styleUrls: ['./rating-form.component.css']  
 })
 export class RatingFormComponent implements OnInit {
 myForm: FormGroup;
@@ -22,6 +21,7 @@ director: FormControl;
 cast: FormControl;
 isClicked: boolean = false; 
 @Output() movieOut: any = new EventEmitter<MovieRating>()
+@Output() movieAdded : EventEmitter<string> = new EventEmitter<string>()
   constructor(private movieSer: MovieService, private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig) { }
 
   ngOnInit() {
@@ -39,18 +39,18 @@ isClicked: boolean = false;
   }
   save(){  console.log(this.myForm)
     this.isClicked = true;
+    let { cast, movieName, rating, director } = this.myForm.value; 
     if(this.myForm.valid){    
-    this.http.post(this.config.apiEindPoint+"/movies", {movie: this.myForm.value})
+    this.http.post(this.config.apiEindPoint+"/movies", {movie: new MovieRating(movieName, rating, director, cast)})
                 .subscribe( (res: any) => {
+                  console.log(res)
                     this.msg.success = res.success;
                     this.msg.message = res.message;
                     if(this.msg.success){
-                      this.movieSer.addMovie(this.myForm.value);
+                      this.movieSer.emitMovie(res.data)
                       this.reset();                     
                     }
-                });
-      
-     // this.movieOut.emit(this.myForm.value); 
+                });     
     }else{
        console.log("not valid!")
     }    

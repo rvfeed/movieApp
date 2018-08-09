@@ -1,7 +1,7 @@
 <br/>
 <div [ngClass]="{'alert-success':msg.success, 'alert-danger':msg.success === false}">{{msg.message}}</div>
 <div class="card col" style= "text-align: left;">
-  <div> <button type="button" on-click="deleteMovie(movieDetails?._id)" class="close" aria-label="Close">
+  <div> <button type="button" on-click="delete(movieDetails?._id)" class="close" aria-label="Close">
   <span aria-hidden="true">&times;</span>
 </button> 
 </div>
@@ -21,7 +21,7 @@
   </form>
   </ng-template>
 <div *ngIf="isEdit else editTemp">
-  <a  on-click="enableEdit(movieDetails?._id)" class="fa fa-pencil"> </a> 
+  <a  on-click="enableEdit(movieDetails?._id)" class="fa fa-pencil"> </a>
     <p>Movie: {{movieDetails?.movieName}}</p>
     <p>Rating: {{movieDetails?.rating}}</p>
     <p> Director: {{movieDetails?.director}}</p>

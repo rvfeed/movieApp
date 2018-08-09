@@ -1,4 +1,9 @@
-<p>
-  rating-list works!
-  <app-rating *ngFor="let movie of movieList" bind-movieList="movie"></app-rating>
-</p>
+<div class="card">
+  <div class="form-group col-2">
+  Show: <select class="form-control" on-change="showNumMovies()" bindon-ngModel="numOfMovies">
+    <option *ngFor="let movNum of showNumOfMovies" [value]="movNum">{{movNum}}</option>
+  </select>
+  </div>
+  <div [ngClass]="{'alert-success':msg.success, 'alert-danger':msg.success === false}">{{msg.message}}</div>
+  <app-rating *ngFor="let movie of movieList" on-deleteMovie="deleteMovie($event)" bind-movieList="movie"></app-rating>
+</div>
