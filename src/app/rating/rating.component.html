@@ -1,20 +1,23 @@
 <br/>
-<div [ngClass]="{'alert-success':msg.success, 'alert-danger':!msg.success}">{{msg.message}}</div>
-<div class="card col"  *ngFor="let movieDetails of movieList" style= "text-align: left;">
+<div [ngClass]="{'alert-success':msg.success, 'alert-danger':msg.success === false}">{{msg.message}}</div>
+<div class="card col" style= "text-align: left;">
   <div> <button type="button" on-click="deleteMovie(movieDetails?._id)" class="close" aria-label="Close">
   <span aria-hidden="true">&times;</span>
 </button> 
-</div>{{isEdit}}
+</div>
 
 <ng-template #editTemp>
-  <a  on-click="updateMovie(movieDetails?._id)">save</a><a>cancel</a>
+  <div style="width: 100px">
+    <a href="javascript:void(0)"  on-click="updateMovie(movieDetails?._id)">save</a>
+    <a href="javascript:void(0)" on-click="cancel()">cancel</a>
+  </div>
   <form >
-    <p>Movie: <input type="text" name="movieName" [(ngModel)]="myForm.movieName" [value]='movieDetails?.movieName' /></p>
-    <p>Rating:   <select id="rating" name="rating" [(ngModel)]="myForm.rating">      
+    <p>Movie: <input type="text" name="movieName" bindon-ngModel="movieDetails.movieName" [value]='movieDetails?.movieName' /></p>
+    <p>Rating:   <select id="rating" name="rating" bindon-ngModel="movieDetails.rating">      
         <option *ngFor="let rate of ratings" bind-value="rate">{{rate}}</option>
       </select>
-    <p> Director: <input type="text" name="director" [(ngModel)]="myForm.director" value='{{movieDetails?.director}}' /></p>
-    <p>Cast:<input type="text" name="cast" [(ngModel)]="myForm.cast" [value]='movieDetails?.cast' /></p>
+    <p> Director: <input type="text" name="director" bindon-ngModel="movieDetails.director" value='{{movieDetails?.director}}' /></p>
+    <p>Cast:<input type="text" name="cast" bindon-ngModel="movieDetails.cast" [value]='movieDetails?.cast' /></p>
   </form>
   </ng-template>
 <div *ngIf="isEdit else editTemp">

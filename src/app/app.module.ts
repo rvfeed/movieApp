@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { RatingComponent } from './rating/rating.component';
 import { RatingFormComponent } from './rating-form/rating-form.component';
 import {MovieService } from "./services/movie.service";
-import {APP_CONFIG, AppConfig} from "./app.config"
+import {APP_CONFIG, AppConfig} from "./app.config";
+import { RatingListComponent } from './rating-list/rating-list.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     RatingComponent,
-    RatingFormComponent
+    RatingFormComponent,
+    RatingListComponent
   ],
   imports: [
     BrowserModule,

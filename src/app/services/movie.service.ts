@@ -9,7 +9,7 @@ export class MovieService {
   companyObs$ = this.companyObs.asObservable();
   constructor(private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig) {
     this.http.get(config.apiEindPoint+"/movies")       
-          .subscribe( movies => movies.map(movie=>this.companyObs.next(movie)));
+          .subscribe( (movies: any) => movies.map(movie=>this.companyObs.next(movie)));
    }
   
   addMovie(movie: any) {

@@ -11,22 +11,19 @@ import { FormGroup,FormControl, Validators } from'@angular/forms'
   styleUrls: ['./rating.component.css']   
 })
 export class RatingComponent implements OnInit {
- @Input("movieList") movieList:Array<MovieRating> = [];
- @Input() count : number = 0;
+ @Input("movieList") movieDetails:MovieRating; 
  ratings: Number[] = [1,2,3,4,5,7,8,9,10];
  isEdit: boolean = true;
-
  msg: any = {};
- myForm:any = {};
-constructor(private movieSer: MovieService, private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig ){
+ myForm:any = { isEdit: false};
+constructor(private movieSer: MovieService,
+   private http: HttpClient,
+    @Inject(APP_CONFIG) private config: IAppConfig ){
   console.log(this)
 }
   ngOnInit() { 
 
-    this.movieSer.companyObs$
-        .subscribe(
-                (movie: MovieRating) => this.movieList.push(movie)
-              );
+   
     }
   ngOnChanges(change: SimpleChanges){
     console.log("change", change)
@@ -35,28 +32,34 @@ constructor(private movieSer: MovieService, private http: HttpClient, @Inject(AP
   }
   deleteMovie(id){
   this.http.delete(this.config.apiEindPoint+"/movie/"+id)
-                  .subscribe((res: any) => {
-                    
-                      this.msg.success = res.success;
-                      this.msg.message = res.message;
-                      if(res.success)
-                          this.movieList = this.movieList.filter( movie => movie._id != id)
+                  .subscribe((res: any) => {                    
+                      let {success, message}  = res;
+                      this.msg = {success, message};                     
                   });
   }
   updateMovie(id){
     delete this.myForm["_id"]
+    
     console.log(this.myForm)
     
-    this.http.put(
-                  this.config.apiEindPoint+"/movie/"+id, 
-                  { movie: this.myForm }
-                  )
-                  .subscribe(msg => console.log(msg))
+    this.http.put(this.config.apiEindPoint+"/movie/"+id, 
+                  { movie: this.myForm } )
+                  .subscribe( (res: any) => {
+                    let {success, message}  = res;
+                      this.msg = {success, message};
+                      if(success){
+                        this.cancel(id)
+                      }
+                  });
   }
-  enableEdit(id){
- this.isEdit = false;
-    console.log(this.myForm)
-    console.log(this.movieList.filter( m =>  m._id == id)[0])
-    this.myForm = this.movieList.filter( m =>  m._id == id)[0]; 
+  enableEdit(id){    
+    this.myForm = this.movieDetails;
+    this.isEdit = false; 
+  }
+  cancel(id){
+    this.isEdit = true; 
+  }
+  ngOnDistroy(){
+    console.log("distroyed")
   }
 }
