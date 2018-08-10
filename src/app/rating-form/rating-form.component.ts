@@ -41,13 +41,13 @@ isClicked: boolean = false;
     this.isClicked = true;
     let { cast, movieName, rating, director } = this.myForm.value; 
     if(this.myForm.valid){    
-    this.http.post(this.config.apiEindPoint+"/movies", {movie: new MovieRating(movieName, rating, director, cast)})
+    this.http.post(this.config.apiEindPoint+"/movies",
+                {movie: { movieName, rating, director, cast, addedDate: Date.now()}})
                 .subscribe( (res: any) => {
-                  console.log(res)
                     this.msg.success = res.success;
                     this.msg.message = res.message;
                     if(this.msg.success){
-                      this.movieSer.emitMovie(res.data)
+                      this.movieSer.emitMovie(res.data);
                       this.reset();                     
                     }
                 });     

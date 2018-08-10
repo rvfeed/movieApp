@@ -26,7 +26,7 @@ export class RatingListComponent implements OnInit {
             (movie: MovieRating[]) => {
               console.log("okk"); 
               movie.map( mov =>  this.movieList.push(
-              new MovieRating(mov._id, mov.movieName, mov.rating, mov.director, mov.cast)
+              new MovieRating(mov.movieName, mov.rating, mov.director, mov.cast, mov._id)
               ))
             }
           );
@@ -38,7 +38,7 @@ export class RatingListComponent implements OnInit {
             (movie: MovieRating[]) => {
               console.log(movie); 
                   movie.map( mov =>  this.movieList.push(
-              new MovieRating(mov._id, mov.movieName, mov.rating, mov.director, mov.cast)
+              new MovieRating(mov.movieName, mov.rating, mov.director, mov.cast, mov._id)
                   ))
             }
           );;
