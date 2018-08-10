@@ -25,6 +25,7 @@ isClicked: boolean = false;
   constructor(private movieSer: MovieService, private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig) { }
 
   ngOnInit() {
+ 
     this.movieName = new FormControl("", Validators.required);
      this.rating = new FormControl("", Validators.required);
       this.director = new FormControl("", Validators.required);

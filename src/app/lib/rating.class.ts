@@ -16,3 +16,18 @@ export class MovieRating {
 
   }
 }
+export class SearchMovie{
+  search?: any; 
+  limit: Number;
+  sortBy: String;
+  constructor(obj){   
+    this.limit = obj.limit;
+    this.sortBy = obj.sortedBy;
+  }
+  set searchText(text){
+    this.search = text;
+  }
+  set limitList(limit){
+    this.limit = limit;
+  }
+}

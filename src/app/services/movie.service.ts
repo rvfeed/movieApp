@@ -11,8 +11,14 @@ export class MovieService {
   companyObs$ = this.companyObs.asObservable();  
 private movieObs = new Subject<MovieRating>();
 movieObs$ = this.movieObs.asObservable();
+testObs:  Observable<any>;
+testProm: Promise<any>;
+obsFun: any;
   constructor(private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig) {
- 
+  this.testObservable(1)
+  this.testPromise(2);
+  console.log(this.movieObs)
+
   }
   
 /*  addMovie(movie: any) {
@@ -22,7 +28,19 @@ movieObs$ = this.movieObs.asObservable();
   emitMovie(msg: MovieRating){
        return this.movieObs.next(msg);
   }
-   getMovies(limit: Number){
-        return this.http.get(this.config.apiEindPoint+"/movies/"+limit);          
+   getMovies(obj){
+        return this.http.post(this.config.apiEindPoint+"/movies", obj);          
+  }
+  testObservable(item){
+     this.testObs = new Observable((observer) =>{     
+   observer.next("obs");    
+        return { unsubscribe(){ console.log("unsubscribed");}}
+    })
+  }
+  testPromise(item = 1){
+    this.testProm = new Promise( (resolve, reject) => {
+      resolve("prom")
+    
+    })
   }
 }
