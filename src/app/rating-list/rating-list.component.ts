@@ -16,35 +16,29 @@ export class RatingListComponent implements OnInit {
   ratingList:any ={};
   msg: any = {};
   constructor(private movieSer: MovieService, private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig) {
-     this.ratingList = { limit: 5, sortBy: this.sortBy[0].value, search:''};
+     
    }  
   ngOnInit(){
+    this.reset();
     this.movieSer.movieObs$.subscribe( (mov: MovieRating) => { 
-     this.movieList.push(mov);
+     this.movieList.unshift(mov);
     });
-  this.getMovies(this.ratingList);
+  
   }
-  showNumMovies(){  
-    this.getMovies(this.ratingList);
+
+  deleteMovie(id){      
+     this.movieSer
+     .deleteMovie(id)
+     .subscribe(
+               (res: any) => {                    
+                   let {success, message}  = res;
+                    this.msg = {success, message};
+                    if(message){
+                       this.getMovies();
+                    }                  
+                });
   }
-    deleteMovie(id){
-      console.log(id, "id")
-      this.http.delete(this.config.apiEindPoint+"/movie/"+id)
-                  .subscribe((res: any) => {                    
-                      let {success, message}  = res;
-                      this.msg = {success, message};
-                      if(message){
-                        this.showNumMovies();
-                      }                  
-                  });
-  }
-  testObserve(r){
-    console.log("start");
-    this.movieSer.testProm.then( d => console.log(d))
-    this.movieSer.testObs.subscribe( s => console.log(s));
-    console.log("end")  
-  }
-  getMovies(param){
+  getMovies(){
  this.movieSer.getMovies(this.ratingList)    
                   .subscribe((movie: MovieRating[]) => {
                       this.movieList = [];
@@ -55,10 +49,14 @@ export class RatingListComponent implements OnInit {
             });
   }
   sortByFn(){   
-   this.getMovies(this.ratingList);
+   this.getMovies();
   }
   searchMovie(){
-    this.getMovies(this.ratingList);
+    this.getMovies();
+  }
+  reset(){
+    this.ratingList = { limit: 5, sortBy: this.sortBy[0].value, search:''};
+    this.getMovies();
   }
 
 }

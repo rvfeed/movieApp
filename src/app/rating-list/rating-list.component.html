@@ -1,19 +1,30 @@
-<div class="card col-sm-12">
-  <div class="col-sm-2">
-  Show: <select class="form-control" on-change="showNumMovies()" bindon-ngModel="ratingList.limit">
+<div class="card">
+  <br/>  
+  <div class="row">
+  <div class="col-1">
+  Show: </div>
+  <div class="col-2"><select class="form-control" on-change="showNumMovies()" bindon-ngModel="ratingList.limit">
     <option *ngFor="let movNum of showNumOfMovies" [value]="movNum">{{movNum}}</option>
   </select>
   </div>
-  <div class="col-sm-2">
-     Sort By: <select class="form-control" on-change="sortByFn()" bindon-ngModel="ratingList.sortBy">
+  <div class="col-1">
+     Sort By:
+  </div>
+  <div class="col-2"> <select class="form-control" on-change="sortByFn()" bindon-ngModel="ratingList.sortBy">
     <option *ngFor="let sort of sortBy" [value]="sort.value">{{sort.name}}</option>
   </select>
   </div>
-   <div class=" col-sm-2">
+   <div class=" col-2">
      <input type="text" class="form-control" name="searchMovie" bindon-ngModel="ratingList.search" placeholder="Search Movie">
+   </div>
+   <div class=" col-1"> 
      <input type="button" on-click="searchMovie()" value="SEARCH" class="btn btn-primary"/>
   </div>
-    <button class="btn" on-click="testObserve(5)">Observe</button>  
+   <div class=" col-1"> 
+     <input type="button" on-click="reset()" value="RESET" class="btn btn-primary"/>
+  </div>
+    <!-- <button class="btn" on-click="testObserve(5)">Observe</button> -->
+    </div>  
   <div [ngClass]="{'alert-success':msg.success, 'alert-danger':msg.success === false}">{{msg.message}}</div>
   <app-rating *ngFor="let movie of movieList" on-deleteMovie="deleteMovie($event)" bind-movieList="movie"></app-rating>
 </div>

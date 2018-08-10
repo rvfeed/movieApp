@@ -1,11 +1,15 @@
-<div class="col-sm-4">
+
   <form [formGroup] = "myForm" novalidate (ngSubmit)="save()" >
+    <div class="row">
+    <div class="col-3">
   <div class="form-group">
   <label for="movieName">Movie Name</label>
     <input type="text" class="form-control" required
      bind-ngClass="{'alert-danger': (!movieName.valid && (movieName.touched || isClicked))}" 
      formControlName="movieName" id="movieName"/>  
   </div>
+    </div>
+    <div class="col-2">
    <div class="form-group"  bind-ngClass="{'alert-danger': (!rating.valid && (rating.dirty || rating.touched || isClicked))}">
   <label for="rating">Rating</label>
     <select class="form-control" formControlName="rating" id="rating">
@@ -14,21 +18,28 @@
     </select>
   
   </div>
+    </div>
+    <div class="col-2">
    <div class="form-group">
   <label for="director">Director</label>
     <input type="text" class="form-control" bind-ngClass="{'alert-danger': (!director.valid && (director.touched || isClicked))}" formControlName="director" id="director"/>
  
   </div>
+    </div>
+    <div class="col-3">
    <div class="form-group">
   <label for="cast">Cast</label>
     <input type="text" class="form-control" bind-ngClass="{'alert-danger': (!cast.valid && (cast.touched || isClicked))}" formControlName="cast" id="cast"/>
   
   </div>
+    </div><div class="col-2">
+        <label for="cast">&nbsp;</label>
     <div class="form-group">  
+    
     <input type="submit" class="btn btn-primary" value="Save"  id="save"/>
     <input type="reset" class="btn btn-primary" value="Reset" on-click="reset()"  id="reset"/>
-  
+    </div>
+  </div>
   </div>
 </form>
 <div [ngClass]="{'alert-success':msg.success, 'alert-danger':!msg.success}">{{msg.message}}</div>
-</div>

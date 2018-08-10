@@ -31,6 +31,9 @@ obsFun: any;
    getMovies(obj){
         return this.http.post(this.config.apiEindPoint+"/movies", obj);          
   }
+  deleteMovie(id){
+     return this.http.delete(this.config.apiEindPoint+"/movie/"+id);
+  }
   testObservable(item){
      this.testObs = new Observable((observer) =>{     
    observer.next("obs");    

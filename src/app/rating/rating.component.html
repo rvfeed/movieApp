@@ -1,4 +1,5 @@
 <br/>
+<div class="row">
 <div [ngClass]="{'alert-success':msg.success, 'alert-danger':msg.success === false}">{{msg.message}}</div>
 <div class="card col" style= "text-align: left;">
   <div> <button type="button" on-click="delete(movieDetails?._id)" class="close" aria-label="Close">
@@ -27,5 +28,5 @@
     <p> Director: {{movieDetails?.director}}</p>
     <p>Cast:{{movieDetails?.cast}}</p> 
   </div>
-
+</div>
 </div>
