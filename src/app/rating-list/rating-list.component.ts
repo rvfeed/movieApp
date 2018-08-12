@@ -4,6 +4,7 @@ import {MovieService } from "../services/movie.service";
 import {HttpClient} from '@angular/common/http';
 import {APP_CONFIG, IAppConfig} from "../app.config";
 import { map } from 'rxjs/operators/map';
+import { RouterState, ActivatedRoute, ParamMap, } from '@angular/router';
 @Component({
   selector: 'app-rating-list',
   templateUrl: './rating-list.component.html',
@@ -15,10 +16,18 @@ export class RatingListComponent implements OnInit {
   sortBy : any[] = [{name: "Latest", value: "addedDate"}, {name: "Rating", value: "rating"}];
   ratingList:any ={};
   msg: any = {};
-  constructor(private movieSer: MovieService, private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig) {
+  constructor(private movieSer: MovieService, 
+    private http: HttpClient,
+    private router: ActivatedRoute,
+    @Inject(APP_CONFIG) private config: IAppConfig) {
      
    }  
   ngOnInit(){
+    this.router.paramMap.subscribe( (p) => {
+      this.ratingList = new SearchMovie({searchText: p.params.searchText});
+      this.getMovies();
+      console.log(p )
+    })
     this.reset();
     this.movieSer.movieObs$.subscribe( (mov: MovieRating) => { 
      this.movieList.unshift(mov);
@@ -43,7 +52,8 @@ export class RatingListComponent implements OnInit {
                   .subscribe((movie: MovieRating[]) => {
                       this.movieList = [];
                       movie.map( mov =>  this.movieList.push(
-                        new MovieRating(mov.movieName, mov.rating, mov.director, mov.cast, mov._id)
+                        new MovieRating(mov.movieName,
+                           mov.rating, mov.director, mov.cast, mov.genre, mov._id)
                       )
                   )
             });

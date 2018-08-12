@@ -1,6 +1,8 @@
 <br/>
+<div [ngClass]="{'alert-success':msg.success, 'alert-danger':msg.success === false}">
+  {{msg.message}}
+</div>
 <div class="row">
-<div [ngClass]="{'alert-success':msg.success, 'alert-danger':msg.success === false}">{{msg.message}}</div>
 <div class="card col" style= "text-align: left;">
   <div> <button type="button" on-click="delete(movieDetails?._id)" class="close" aria-label="Close">
   <span aria-hidden="true">&times;</span>
@@ -12,18 +14,22 @@
     <a href="javascript:void(0)"  on-click="updateMovie(movieDetails?._id)">save</a>
     <a href="javascript:void(0)" on-click="cancel()">cancel</a>
   </div>
-  <form >
+  
     <p>Movie: <input type="text" name="movieName" bindon-ngModel="movieDetails.movieName" [value]='movieDetails?.movieName' /></p>
+    <p>Genre:  <select bindon-ngModel="movieDetails.genre" id="genre">        
+        <option *ngFor="let genre of genres" bind-value="genre">{{genre}}</option>
+      </select>  
     <p>Rating:   <select id="rating" name="rating" bindon-ngModel="movieDetails.rating">      
         <option *ngFor="let rate of ratings" bind-value="rate">{{rate}}</option>
       </select>
     <p> Director: <input type="text" name="director" bindon-ngModel="movieDetails.director" value='{{movieDetails?.director}}' /></p>
     <p>Cast:<input type="text" name="cast" bindon-ngModel="movieDetails.cast" [value]='movieDetails?.cast' /></p>
-  </form>
+  
   </ng-template>
 <div *ngIf="isEdit else editTemp">
   <a  on-click="enableEdit(movieDetails?._id)" class="fa fa-pencil"> </a>
     <p>Movie: {{movieDetails?.movieName}}</p>
+    <p>Genre: {{movieDetails?.genre}}</p>
     <p>Rating: {{movieDetails?.rating}}</p>
     <p> Director: {{movieDetails?.director}}</p>
     <p>Cast:{{movieDetails?.cast}}</p> 

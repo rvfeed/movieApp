@@ -5,6 +5,8 @@ import { MovieRating } from "../lib/rating.class"
 import {MovieService } from "../services/movie.service";
 import {HttpClient} from '@angular/common/http';
 import {APP_CONFIG, IAppConfig} from "../app.config";
+import {APP_CONSTANTS, DefaultValues} from "../app.constants";
+import { constants } from 'os';
 @Component({
   selector: 'app-rating-form',
   templateUrl: './rating-form.component.html',
@@ -14,36 +16,43 @@ export class RatingFormComponent implements OnInit {
 myForm: FormGroup;
 movies: Array<MovieRating>;
 msg: any = {};
-ratings: Number[] = [1,2,3,4,5,7,8,9,10];
+ratings: Number[];
 movieName: FormControl;
 rating: FormControl;
+genre: FormControl;
 director: FormControl;
 cast: FormControl;
+genres : String[];
 isClicked: boolean = false; 
 @Output() movieOut: any = new EventEmitter<MovieRating>()
 @Output() movieAdded : EventEmitter<string> = new EventEmitter<string>()
-  constructor(private movieSer: MovieService, private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig) { }
+  constructor(private movieSer: MovieService, private http: HttpClient,
+     @Inject(APP_CONFIG) private config: IAppConfig,
+    @Inject(APP_CONSTANTS) private consts: DefaultValues) {
+      this.ratings = this.consts.RATINGS;
+      this.genres = this.consts.GENRES;
+     }
 
-  ngOnInit() {
- 
+  ngOnInit() { 
     this.movieName = new FormControl("", Validators.required);
      this.rating = new FormControl("", Validators.required);
+     this.genre = new FormControl("", Validators.required);
       this.director = new FormControl("", Validators.required);
       this.cast = new FormControl("", Validators.required);
     this.myForm = new FormGroup({
       movieName: this.movieName,
       rating: this.rating,
+      genre : this.genre,
       director: this.director,
       cast: this.cast
     });
-    //this.myForm.valueChanges.subscribe( d => console.log(d))
-  }
+   }
   save(){  console.log(this.myForm)
     this.isClicked = true;
-    let { cast, movieName, rating, director } = this.myForm.value; 
-    if(this.myForm.valid){    
-    this.http.post(this.config.apiEindPoint+"/addmovie",
-                {movie: { movieName, rating, director, cast, addedDate: Date.now()}})
+    if(!this.myForm.valid) 
+        console.log("not valid!")
+
+    this.movieSer.addMovie(this.myForm.value)
                 .subscribe( (res: any) => {
                     this.msg.success = res.success;
                     this.msg.message = res.message;
@@ -52,13 +61,9 @@ isClicked: boolean = false;
                       this.reset();                     
                     }
                 });     
-    }else{
-       console.log("not valid!")
-    }    
-  }
-  edit(id){
     
   }
+
   reset(){
     this.myForm.reset();
      this.isClicked = false;

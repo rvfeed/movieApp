@@ -11,8 +11,7 @@ export class AppComponent {
   title = 'Movie App'; 
  
   constructor() { }  
-ngOnInit(){
+ngOnInit(){}
 
-}
 
 }

@@ -15,14 +15,25 @@
     <select class="form-control" formControlName="rating" id="rating">
       <option value="">Select Rating</option>
       <option *ngFor="let rate of ratings" bind-value="rate">{{rate}}</option>
-    </select>
-  
+    </select>  
   </div>
     </div>
     <div class="col-2">
+        <div class="form-group"  
+        bind-ngClass="{'alert-danger': (!genre.valid && (genre.dirty || genre.touched || isClicked))}">
+       <label for="genre">Genre</label>
+         <select class="form-control" formControlName="genre" id="genre">
+           <option value="">Select Genre</option>
+           <option *ngFor="let genre of genres" bind-value="genre">{{genre}}</option>
+         </select>  
+       </div>
+         </div>
+    <div class="col-2">
    <div class="form-group">
   <label for="director">Director</label>
-    <input type="text" class="form-control" bind-ngClass="{'alert-danger': (!director.valid && (director.touched || isClicked))}" formControlName="director" id="director"/>
+    <input type="text" class="form-control" 
+    bind-ngClass="{'alert-danger': (!director.valid && (director.touched || isClicked))}" 
+    formControlName="director" id="director"/>
  
   </div>
     </div>

@@ -5,7 +5,8 @@ import {MovieService } from "../services/movie.service";
 import {HttpClient} from '@angular/common/http';
 import {APP_CONFIG, IAppConfig} from "../app.config";
 import { RatingFormComponent} from "../rating-form/rating-form.component";
-import { FormGroup,FormControl, Validators } from'@angular/forms'
+import { FormGroup,FormControl, Validators } from'@angular/forms';
+import {APP_CONSTANTS, DefaultValues} from "../app.constants";
 @Component({
   selector: 'app-rating',
   templateUrl: './rating.component.html',
@@ -14,35 +15,35 @@ import { FormGroup,FormControl, Validators } from'@angular/forms'
 export class RatingComponent implements OnInit {
  @Input("movieList") movieDetails:MovieRating;
  @Output() deleteMovie : EventEmitter<MovieRating> = new EventEmitter<MovieRating>()
- ratings: Number[] = [1,2,3,4,5,7,8,9,10];
+ ratings: Number[];
+ genres: String[];
  isEdit: boolean = true;
  msg: any = {};
  myForm:any = { isEdit: false};
 constructor(private movieSer: MovieService,
    private http: HttpClient,
-    @Inject(APP_CONFIG) private config: IAppConfig ){
-  console.log(this)
-}
-  ngOnInit() { 
-
+    @Inject(APP_CONFIG) private config: IAppConfig,
+  @Inject(APP_CONSTANTS) private consts: DefaultValues ){
    
-    }
+  }
+  ngOnInit() {
+    console.log(this.consts.RATINGS)
+    this.ratings = this.consts.RATINGS;
+    this.genres = this.consts.GENRES;
+   }
+
   ngOnChanges(change: SimpleChanges){
     console.log("change", change)
   }
-  ngdoCheck(){    
-  }
+  ngdoCheck(){ }
+
   delete(id){
     console.log(id)
     this.deleteMovie.emit(id);
   }
   updateMovie(id){
-    delete this.myForm["_id"]
-    
-    console.log(this.myForm)
-    
-    this.http.put(this.config.apiEindPoint+"/movie/"+id, 
-                  { movie: this.myForm } )
+    delete this.myForm["_id"];    
+    this.movieSer.updateMovie(id, this.myForm)
                   .subscribe( (res: any) => {
                     let {success, message}  = res;
                       this.msg = {success, message};
@@ -51,7 +52,8 @@ constructor(private movieSer: MovieService,
                       }
                   });
   }
-  enableEdit(id){    
+  enableEdit(id){
+    console.log("movieDetails",this.movieDetails)
     this.myForm = this.movieDetails;
     this.isEdit = false; 
   }

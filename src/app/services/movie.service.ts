@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { Subject }    from 'rxjs/Subject';
-import { MovieRating } from "../lib/rating.class";
+import { MovieRating, SearchMovie } from "../lib/rating.class";
 import {HttpClient} from '@angular/common/http';
 import {APP_CONFIG, IAppConfig} from "../app.config";
 import { Observable } from 'rxjs';
@@ -14,17 +14,27 @@ movieObs$ = this.movieObs.asObservable();
 testObs:  Observable<any>;
 testProm: Promise<any>;
 obsFun: any;
-  constructor(private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig) {
+  constructor(private http: HttpClient,
+    @Inject(APP_CONFIG) private config: IAppConfig,
+    
+  ) {
   this.testObservable(1)
   this.testPromise(2);
   console.log(this.movieObs)
 
   }
   
-/*  addMovie(movie: any) {
-    console.log(movie)
-    this.companyObs.next(movie);
-  }*/
+  
+ addMovie(movie: any) {    
+    let { cast, movieName, rating, director, genre } = movie;       
+    return this.http
+                .post(this.config.apiEindPoint+"/addmovie",
+                      {movie: { movieName, rating, director,
+                       cast, genre, addedDate: Date.now()}})
+  }
+  updateMovie(id, movie){    
+    return this.http.put(this.config.apiEindPoint+"/movie/"+id, { movie } ) 
+  }
   emitMovie(msg: MovieRating){
        return this.movieObs.next(msg);
   }

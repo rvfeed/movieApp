@@ -1,12 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center" class="container">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  
-  <app-rating-form></app-rating-form>
-
-    <app-rating-list></app-rating-list>
-
- 
+<header>
+    <app-header on-search="searchMovie($event)"><span class="title">{{ title }}</span></app-header>
+</header>
+<div style="text-align:center" class="container">  
+  <router-outlet></router-outlet> 
 </div>
