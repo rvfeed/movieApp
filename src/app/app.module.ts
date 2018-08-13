@@ -17,13 +17,16 @@ import { MoviesComponent } from './movies/movies.component';
 import { BlogComponent } from './blog/blog.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
-import { FileNotFoundComponent } from './file-not-found/file-not-found.component'
+import { FileNotFoundComponent } from './file-not-found/file-not-found.component';
 
+import { Child1Component } from './dashboard/child1/child1.component';
+import { Child2Component } from './dashboard/child2/child2.component';
+import { Child3Component } from './dashboard/child3/child3.component';
+import { AppDashBoardModule } from './dashboard/app.dashboard.module'
 let routes: Routes = [
-  {path:'', component: DashboardComponent},
   
-  {path:'dashboard', component: DashboardComponent,
-  children: [ {path:'addMovie', component: RatingFormComponent}]},
+  
+
   {path: 'top5', component: Top5Component},
  
   {path: 'movies/:searchText', component: RatingListComponent},
@@ -39,20 +42,23 @@ let routes: Routes = [
     RatingFormComponent,
     RatingListComponent,
     HeaderComponent,
-    DashboardComponent,
+
     Top5Component,
     MoviesComponent,
     BlogComponent,
     LoginComponent,
     LogoutComponent,
     FileNotFoundComponent
+
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes, {useHash: true})
+  
+    RouterModule.forRoot(routes, {useHash: true}),
+      AppDashBoardModule
   ],
   providers: [MovieService, 
     {provide: APP_CONFIG, useValue: AppConfig},

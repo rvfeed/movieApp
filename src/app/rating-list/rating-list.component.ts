@@ -1,4 +1,5 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, 
+  Input, SimpleChanges } from '@angular/core';
 import { MovieRating, SearchMovie } from "../lib/rating.class"
 import {MovieService } from "../services/movie.service";
 import {HttpClient} from '@angular/common/http';
@@ -13,9 +14,10 @@ import { RouterState, ActivatedRoute, ParamMap, } from '@angular/router';
 export class RatingListComponent implements OnInit {
   movieList: MovieRating[] = [];
   showNumOfMovies : Number[] = [5,10,20,30];
-  sortBy : any[] = [{name: "Latest", value: "addedDate"}, {name: "Rating", value: "rating"}];
-  ratingList:any ={};
+  sortBy : any[] = [{name: "Latest", value: "addedDate"}, {name: "Rating", value: "rating"}, {name: "movieName", value: "Movie Name"}];
+   @Input('limit') ratingList:any = new SearchMovie({ limit: 5, sortedBy: this.sortBy[0].value,});;
   msg: any = {};
+  
   constructor(private movieSer: MovieService, 
     private http: HttpClient,
     private router: ActivatedRoute,
@@ -23,16 +25,20 @@ export class RatingListComponent implements OnInit {
      
    }  
   ngOnInit(){
-    this.router.paramMap.subscribe( (p) => {
-      this.ratingList = new SearchMovie({searchText: p.params.searchText});
-      this.getMovies();
-      console.log(p )
-    })
-    this.reset();
+    let search = this.router.snapshot.paramMap.get('searchText');
+    if(search){
+        this.ratingList = new SearchMovie({searchText: search});
+        console.log(this.ratingList)
+    }
+    this.getMovies();
     this.movieSer.movieObs$.subscribe( (mov: MovieRating) => { 
      this.movieList.unshift(mov);
     });
   
+  }
+  ngOnChanges(change: SimpleChanges){
+    
+   
   }
 
   deleteMovie(id){      

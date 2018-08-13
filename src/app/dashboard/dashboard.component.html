@@ -1,5 +1,16 @@
 <p>
-  dashboard works!
-  <a routerLink="addMovie">Add Movie</a>
-  <router-outlet></router-outlet>
+   <!-- <a routerLink="addMovie" on-click="tobbleAddMovie()">
+ <span *ngIf="!addMovie"><span class="fa fa-plus-circle"></span></span>
+  <span *ngIf="addMovie"><span class="fa fa-minus-circle"></span></span>
+
+    </a>
+ <app-rating-form *ngIf="addMovie"></app-rating-form>-->
 </p>
+<div class="col-6">
+  <ul>
+    <li><a routerLink="child1">Child 1</a></li>
+    <li><a routerLink="child2">Child 2</a></li>
+    <li><a routerLink="child3">Child 3</a></li>
+  </ul>
+</div>
+<router-outlet></router-outlet>
