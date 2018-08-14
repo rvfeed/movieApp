@@ -24,7 +24,7 @@
       </select>
     <p> Director: <input type="text" name="director" bindon-ngModel="movieDetails.director" value='{{movieDetails?.director}}' /></p>
     <p>Cast:<input type="text" name="cast" bindon-ngModel="movieDetails.cast" [value]='movieDetails?.cast' /></p>
-  
+      
   </ng-template>
 <div *ngIf="isEdit else editTemp">
   <a  on-click="enableEdit(movieDetails?._id)" class="fa fa-pencil"> </a>

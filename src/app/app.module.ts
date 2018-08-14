@@ -18,19 +18,14 @@ import { BlogComponent } from './blog/blog.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { FileNotFoundComponent } from './file-not-found/file-not-found.component';
+import { AppDashBoardModule } from './dashboard/app.dashboard.module';
+import { RegistrationComponent } from './registration/registration.component';
+import { UserService } from "./services/user/user.service";
 
-import { Child1Component } from './dashboard/child1/child1.component';
-import { Child2Component } from './dashboard/child2/child2.component';
-import { Child3Component } from './dashboard/child3/child3.component';
-import { AppDashBoardModule } from './dashboard/app.dashboard.module'
 let routes: Routes = [
-  
-  
-
-  {path: 'top5', component: Top5Component},
- 
-  {path: 'movies/:searchText', component: RatingListComponent},
-  {path: 'movies', component: RatingListComponent},
+  {path: 'top5', component: Top5Component}, 
+  {path: 'movies/:searchText', component: RatingListComponent},  
+  {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'logout', component: LogoutComponent},
   {path: '**', component: FileNotFoundComponent}
@@ -38,29 +33,26 @@ let routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    RatingComponent,
-    RatingFormComponent,
+    RatingComponent,    
     RatingListComponent,
     HeaderComponent,
-
     Top5Component,
     MoviesComponent,
     BlogComponent,
     LoginComponent,
     LogoutComponent,
-    FileNotFoundComponent
-
+    FileNotFoundComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule,
-  
+    HttpClientModule,  
     RouterModule.forRoot(routes, {useHash: true}),
-      AppDashBoardModule
+    AppDashBoardModule
   ],
-  providers: [MovieService, 
+  providers: [MovieService, UserService,
     {provide: APP_CONFIG, useValue: AppConfig},
     {provide: APP_CONSTANTS, useValue: {RATINGS, GENRES}}
   ],
