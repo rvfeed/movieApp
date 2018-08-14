@@ -10,4 +10,7 @@ export class UserService {
     console.log({user})
     return this.http.post(this.config.apiEindPoint+"/register", {user})
   }
+  login(user){
+    return this.http.post(this.config.apiEindPoint+"/login", {user});
+  }
 }

@@ -23,7 +23,8 @@ import { RegistrationComponent } from './registration/registration.component';
 import { UserService } from "./services/user/user.service";
 
 let routes: Routes = [
-  {path: 'top5', component: Top5Component}, 
+  {path: 'top5', component: Top5Component},
+  {path: 'movies', component: RatingListComponent},  
   {path: 'movies/:searchText', component: RatingListComponent},  
   {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},

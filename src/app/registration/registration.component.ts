@@ -14,6 +14,7 @@ export class RegistrationComponent implements OnInit {
   email: FormControl;
   gender: FormControl;
   isFormValid: boolean = false;
+  result: any = {};
 
   constructor( private userSer: UserService) { }
 
@@ -34,10 +35,11 @@ export class RegistrationComponent implements OnInit {
 
   register(){
     if(this.registrationForm.valid){
-     
-      console.log(this.registrationForm.value)
-      this.userSer.registration(this.registrationForm.value)
-                  .subscribe( msg => console.log(msg))
+     let {username, password, email, gender} = this.registrationForm.value;
+      this.userSer.registration({username, password, email, gender})
+                  .subscribe( msg => {
+                    this.result = msg;
+                  })
     }else{
       this.isFormValid = true;
     }

@@ -1,6 +1,9 @@
 <form [formGroup]= "registrationForm" on-ngSubmit="register()">
+  
     <div class="row">
+     
       <div class="col-4">
+         <div [ngClass]="{'alert-danger': !result.success , 'alert-success': result.success}">{{result.message}}</div>
     <div class="form-group">
       <input type="text" formControlName="username" 
         name = "username" placeholder="Username"
