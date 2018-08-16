@@ -24,6 +24,7 @@ import { UserService } from "./services/user/user.service";
 import { LocalService } from './services/storage/local.service';
 import { LoggedInGuard } from './services/guards/logged.service';
 import { NgcontentComponent } from './ngcontent/ngcontent.component';
+import { FormElementsComponent } from './form-elements/form-elements.component';
 let routes: Routes = [
   { path: '', redirectTo:'dashboard', pathMatch:'full'},
   {path: 'top5', component: Top5Component, canActivate: [LoggedInGuard] },
@@ -46,7 +47,9 @@ let routes: Routes = [
     LoginComponent,
     LogoutComponent,
     FileNotFoundComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    FormElementsComponent  
+    
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,7 @@ let routes: Routes = [
     FormsModule,
     HttpClientModule,  
     RouterModule.forRoot(routes, {useHash: true}),
-    AppDashBoardModule
+    AppDashBoardModule    
   ],
   providers: [MovieService, UserService, LocalService, LoggedInGuard,
     {provide: APP_CONFIG, useValue: AppConfig},

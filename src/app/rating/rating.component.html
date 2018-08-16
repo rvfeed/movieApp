@@ -1,38 +1,40 @@
-<br/>
 <div [ngClass]="{'alert-success':msg.success, 'alert-danger':msg.success === false}">
   {{msg.message}}
 </div>
 <div class="row">
 <div class="card col" style= "text-align: left;">
-  <div> <button type="button" on-click="delete(movieDetails?._id)" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button> 
-</div>
-
 <ng-template #editTemp>
   <div style="width: 100px">
     <a href="javascript:void(0)"  on-click="updateMovie(movieDetails?._id)">save</a>
     <a href="javascript:void(0)" on-click="cancel()">cancel</a>
   </div>
-  
-    <p>Movie: <input type="text" name="movieName" bindon-ngModel="movieDetails.movieName" [value]='movieDetails?.movieName' /></p>
-    <p>Genre:  <select bindon-ngModel="movieDetails.genre" id="genre">        
+   <ul class="movie-list">
+    <li></li>
+    <li><input type="text" name="movieName" bindon-ngModel="movieDetails.movieName" [value]='movieDetails?.movieName' /></li>
+        <li><select bindon-ngModel="movieDetails.genre" id="genre">        
         <option *ngFor="let genre of genres" bind-value="genre">{{genre}}</option>
-      </select>  
-    <p>Rating:   <select id="rating" name="rating" bindon-ngModel="movieDetails.rating">      
+      </select></li>
+    <li><select id="rating" name="rating" bindon-ngModel="movieDetails.rating">      
         <option *ngFor="let rate of ratings" bind-value="rate">{{rate}}</option>
-      </select>
-    <p> Director: <input type="text" name="director" bindon-ngModel="movieDetails.director" value='{{movieDetails?.director}}' /></p>
-    <p>Cast:<input type="text" name="cast" bindon-ngModel="movieDetails.cast" [value]='movieDetails?.cast' /></p>
-      
+      </select></li>
+    <li><input type="text" name="director" bindon-ngModel="movieDetails.director" value='{{movieDetails?.director}}' /></li>
+
+    <li><input type="text" name="cast" bindon-ngModel="movieDetails.cast" value='{{movieDetails?.cast}}' /></li>
+    <li></li>
+  </ul>
+
   </ng-template>
-<div *ngIf="isEdit else editTemp">
-  <a  on-click="enableEdit(movieDetails?._id)" class="fa fa-pencil"> </a>
-    <p>Movie: {{movieDetails?.movieName}}</p>
-    <p>Genre: {{movieDetails?.genre}}</p>
-    <p>Rating: {{movieDetails?.rating}}</p>
-    <p> Director: {{movieDetails?.director}}</p>
-    <p>Cast:{{movieDetails?.cast}}</p> 
+<div *ngIf="isEdit else editTemp"> 
+  <ul class="movie-list">
+    <li> <a  on-click="enableEdit(movieDetails?._id)" class="fa fa-pencil">&nbsp;</a></li>
+    <li>{{movieDetails?.movieName}}</li>
+    <li>{{movieDetails?.genre}}</li>
+    <li>{{movieDetails?.rating}}</li>
+    <li>{{movieDetails?.director}}</li>
+    <li>{{movieDetails?.cast}}</li>
+    <li><a  on-click="delete(movieDetails?._id)" class="close" aria-label="Close">
+  <span aria-hidden="true">&times;</span></a> </li>
+  </ul>
   </div>
 </div>
 </div>

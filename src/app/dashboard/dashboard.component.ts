@@ -15,4 +15,7 @@ addMovie: boolean = false;
   tobbleAddMovie(){
     this.addMovie = !this.addMovie;
   }
+  back(){
+    console.log("this.loc.back()");
+  }
 }

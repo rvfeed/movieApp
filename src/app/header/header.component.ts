@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
               private localSer: LocalService) { }
 
   ngOnInit() {
+    this.loggedIn = this.localSer.localUserName == "in";
     this.localSer.localObs$
                  .subscribe( user => {
                    console.log(user == "in")
