@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchMovie } from '../lib/rating.class'
+import { SearchMovie } from '../lib/rating.class';
+import { LocalService } from '../services/storage/local.service';
 
 @Component({
   selector: 'app-top5',
@@ -8,9 +9,10 @@ import { SearchMovie } from '../lib/rating.class'
 })
 export class Top5Component implements OnInit {
 limitTop: SearchMovie = new SearchMovie({sortedBy: 'rating', limit: 5});
-  constructor() { }
+  constructor(private localStr: LocalService) { }
 
   ngOnInit() {
+   // this.localStr.checkUser("top5");
   }
 
 }

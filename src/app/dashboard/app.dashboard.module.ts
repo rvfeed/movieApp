@@ -8,10 +8,11 @@ import { Child3Component } from './child3/child3.component';
 
 import { DashboardComponent } from './dashboard.component';
 import {AppDashBoardRoutingModule } from './app.dashboard.routing';
-import { AppRatingFormModule} from '../rating-form/rating-form.module'
+import { AppRatingFormModule} from '../rating-form/rating-form.module';
+import { NgcontentComponent} from '../ngcontent/ngcontent.component'
 @NgModule({
     imports: [ CommonModule, FormsModule,AppDashBoardRoutingModule, ReactiveFormsModule, AppRatingFormModule],
-    declarations: [DashboardComponent, Child1Component, Child2Component, Child3Component],    
+    declarations: [DashboardComponent, NgcontentComponent, Child1Component, Child2Component, Child3Component],    
     providers: []
 })
 export class AppDashBoardModule{

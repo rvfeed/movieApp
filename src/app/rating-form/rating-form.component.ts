@@ -6,7 +6,6 @@ import {MovieService } from "../services/movie.service";
 import {HttpClient} from '@angular/common/http';
 import {APP_CONFIG, IAppConfig} from "../app.config";
 import {APP_CONSTANTS, DefaultValues} from "../app.constants";
-import { constants } from 'os';
 @Component({
   selector: 'app-rating-form',
   templateUrl: './rating-form.component.html',

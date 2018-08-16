@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-
+import { LocalService } from './services/storage/local.service'
 import { RatingComponent } from './rating/rating.component';
 
 @Component({
@@ -10,8 +10,11 @@ import { RatingComponent } from './rating/rating.component';
 export class AppComponent {
   title = 'Movie App'; 
  
-  constructor() { }  
-ngOnInit(){}
+  constructor(private localStr : LocalService) {}  
+ngOnInit(){
+  this.localStr.localObs$
+               .subscribe( m => console.log(m));
+}
 
 
 }

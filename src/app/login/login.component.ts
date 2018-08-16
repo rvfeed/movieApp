@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import {UserService } from "../services/user/user.service";
 import { Router } from '@angular/router';
+import { LocalService } from '../services/storage/local.service'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,7 +13,9 @@ export class LoginComponent implements OnInit {
   username: FormControl;
   password: FormControl;
   message : String = '';
-  constructor(private userSer : UserService, private router: Router) { }
+  constructor(private userSer : UserService,
+              private router: Router,
+            private localStr: LocalService) { }
 
   ngOnInit() {
     this.username  = new FormControl("", Validators.required);
@@ -29,8 +32,10 @@ export class LoginComponent implements OnInit {
       this.userSer.login({ username, password })
                   .subscribe( (out : any) => {
                     if(out.success){
+                      this.localStr.checkUser("in");
                       this.router.navigate(['/dashboard'])
                     }else{
+                      this.localStr.checkUser("out");
                       this.message = "Login Failed"
                     }
                     

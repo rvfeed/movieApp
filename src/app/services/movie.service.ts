@@ -30,16 +30,16 @@ obsFun: any;
     return this.http
                 .post(this.config.apiEindPoint+"/addmovie",
                       {movie: { movieName, rating, director,
-                       cast, genre, addedDate: Date.now()}})
+                       cast, genre, addedDate: Date.now()}}, {withCredentials: true})
   }
   updateMovie(id, movie){    
-    return this.http.put(this.config.apiEindPoint+"/movie/"+id, { movie } ) 
+    return this.http.put(this.config.apiEindPoint+"/movie/"+id, { movie }, {withCredentials: true} ) 
   }
   emitMovie(msg: MovieRating){
        return this.movieObs.next(msg);
   }
    getMovies(obj){
-        return this.http.post(this.config.apiEindPoint+"/movies", obj);          
+        return this.http.post(this.config.apiEindPoint+"/movies", obj, {withCredentials: true});          
   }
   deleteMovie(id){
      return this.http.delete(this.config.apiEindPoint+"/movie/"+id);

@@ -11,6 +11,6 @@ export class UserService {
     return this.http.post(this.config.apiEindPoint+"/register", {user})
   }
   login(user){
-    return this.http.post(this.config.apiEindPoint+"/login", {user});
+    return this.http.post(this.config.apiEindPoint+"/login", {user}, {withCredentials: true});
   }
 }

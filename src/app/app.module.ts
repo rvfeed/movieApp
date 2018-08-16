@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Router, Routes}  from "@angular/router"
+import { RouterModule, Router, Routes, CanActivate}  from "@angular/router"
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 import { ReactiveFormsModule,  FormsModule } from'@angular/forms';
 import { AppComponent } from './app.component';
@@ -21,11 +21,14 @@ import { FileNotFoundComponent } from './file-not-found/file-not-found.component
 import { AppDashBoardModule } from './dashboard/app.dashboard.module';
 import { RegistrationComponent } from './registration/registration.component';
 import { UserService } from "./services/user/user.service";
-
+import { LocalService } from './services/storage/local.service';
+import { LoggedInGuard } from './services/guards/logged.service';
+import { NgcontentComponent } from './ngcontent/ngcontent.component';
 let routes: Routes = [
-  {path: 'top5', component: Top5Component},
-  {path: 'movies', component: RatingListComponent},  
-  {path: 'movies/:searchText', component: RatingListComponent},  
+  { path: '', redirectTo:'dashboard', pathMatch:'full'},
+  {path: 'top5', component: Top5Component, canActivate: [LoggedInGuard] },
+  {path: 'movies', component: RatingListComponent, canActivate: [LoggedInGuard]},
+  {path: 'movies/:searchText', component: RatingListComponent, canActivate: [LoggedInGuard]},  
   {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'logout', component: LogoutComponent},
@@ -53,10 +56,11 @@ let routes: Routes = [
     RouterModule.forRoot(routes, {useHash: true}),
     AppDashBoardModule
   ],
-  providers: [MovieService, UserService,
+  providers: [MovieService, UserService, LocalService, LoggedInGuard,
     {provide: APP_CONFIG, useValue: AppConfig},
     {provide: APP_CONSTANTS, useValue: {RATINGS, GENRES}}
   ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,6 +7,7 @@ import {APP_CONFIG, IAppConfig} from "../app.config";
 import { RatingFormComponent} from "../rating-form/rating-form.component";
 import { FormGroup,FormControl, Validators } from'@angular/forms';
 import {APP_CONSTANTS, DefaultValues} from "../app.constants";
+import { LocalService } from '../services/storage/local.service';
 @Component({
   selector: 'app-rating',
   templateUrl: './rating.component.html',
@@ -22,11 +23,12 @@ export class RatingComponent implements OnInit {
  myForm:any = { isEdit: false};
 constructor(private movieSer: MovieService,
    private http: HttpClient,
+   private localStr:  LocalService,
     @Inject(APP_CONFIG) private config: IAppConfig,
   @Inject(APP_CONSTANTS) private consts: DefaultValues ){
    
   }
-  ngOnInit() {
+  ngOnInit() {    
     console.log(this.consts.RATINGS)
     this.ratings = this.consts.RATINGS;
     this.genres = this.consts.GENRES;
