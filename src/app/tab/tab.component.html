@@ -1,0 +1,8 @@
+<p *ngIf="active">
+ <ng-content></ng-content>
+<ng-container *ngIf="template"
+        [ngTemplateOutlet]="template"
+        [ngTemplateOutletContext]="{ person: dataContext }"
+      >
+      </ng-container>
+</p>

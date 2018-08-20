@@ -1,3 +1,14 @@
-<p>
-  blog works!
-</p>
+<tabs>
+  <tab bind-id="1" bind-name="'Movies'">
+    <app-rating-list></app-rating-list>
+  </tab>
+  <tab bind-id="2" bind-name="'Add Movie'">
+    <app-rating-form></app-rating-form>
+  </tab>  
+  <tab bind-id="3" bind-name="'Menu2'">Menu 2</tab>
+  <tab bind-id="4" bind-name="'Menu3'">Menu 3</tab>
+</tabs>
+ <ng-template #movieEdit>
+      <app-rating-form></app-rating-form>
+    </ng-template>
+<button class="btn"(click)="addMovie()">Add New Movie</button>

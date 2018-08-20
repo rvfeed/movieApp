@@ -25,6 +25,10 @@ import { LocalService } from './services/storage/local.service';
 import { LoggedInGuard } from './services/guards/logged.service';
 import { NgcontentComponent } from './ngcontent/ngcontent.component';
 import { FormElementsComponent } from './form-elements/form-elements.component';
+import { TabsComponent } from './tabs/tabs.component';
+import { TabComponent } from './tab/tab.component';
+import { AppRatingFormModule} from './rating-form/rating-form.module';
+import { DynamicTabsDirective } from './dynamic-tabs.directive';
 let routes: Routes = [
   { path: '', redirectTo:'dashboard', pathMatch:'full'},
   {path: 'top5', component: Top5Component, canActivate: [LoggedInGuard] },
@@ -32,6 +36,7 @@ let routes: Routes = [
   {path: 'movies/:searchText', component: RatingListComponent, canActivate: [LoggedInGuard]},  
   {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'blog', component: BlogComponent},
   {path: 'logout', component: LogoutComponent},
   {path: '**', component: FileNotFoundComponent}
 ]
@@ -48,7 +53,10 @@ let routes: Routes = [
     LogoutComponent,
     FileNotFoundComponent,
     RegistrationComponent,
-    FormElementsComponent  
+    FormElementsComponent,
+    TabsComponent,
+    TabComponent,
+    DynamicTabsDirective  
     
   ],
   imports: [
@@ -57,6 +65,7 @@ let routes: Routes = [
     FormsModule,
     HttpClientModule,  
     RouterModule.forRoot(routes, {useHash: true}),
+    AppRatingFormModule,
     AppDashBoardModule    
   ],
   providers: [MovieService, UserService, LocalService, LoggedInGuard,
@@ -64,6 +73,7 @@ let routes: Routes = [
     {provide: APP_CONSTANTS, useValue: {RATINGS, GENRES}}
   ],
   exports: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [TabComponent]
 })
 export class AppModule { }
