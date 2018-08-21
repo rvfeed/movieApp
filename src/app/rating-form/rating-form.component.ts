@@ -12,6 +12,7 @@ import {APP_CONSTANTS, DefaultValues} from "../app.constants";
   styleUrls: ['./rating-form.component.css']  
 })
 export class RatingFormComponent implements OnInit {
+  @Input() movie: any = {};
 myForm: FormGroup;
 movies: Array<MovieRating>;
 msg: any = {};
@@ -33,11 +34,11 @@ isClicked: boolean = false;
      }
 
   ngOnInit() { 
-    this.movieName = new FormControl("", Validators.required);
-     this.rating = new FormControl("", Validators.required);
-     this.genre = new FormControl("", Validators.required);
-      this.director = new FormControl("", Validators.required);
-      this.cast = new FormControl("", Validators.required);
+    this.movieName = new FormControl(this.movie.movieName || '', Validators.required);
+     this.rating = new FormControl(this.movie.rating ||'', Validators.required);
+     this.genre = new FormControl(this.movie.genre || '', Validators.required);
+      this.director = new FormControl(this.movie.director || '', Validators.required);
+      this.cast = new FormControl(this.movie.cast || '', Validators.required);
     this.myForm = new FormGroup({
       movieName: this.movieName,
       rating: this.rating,

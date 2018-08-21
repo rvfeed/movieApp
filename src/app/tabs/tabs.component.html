@@ -1,12 +1,14 @@
 <div class="col-12">
-  <div class="col-8">
+  <div class="col-12">
 <ul class="nav nav-tabs">
   <li class="nav-item"  *ngFor="let tab of tabs">
     <a class="nav-link" [ngClass]="{'active': tab.active}"
       on-click="selectTab(tab)" href="javascript:void(0)">{{tab.name}}</a>
   </li>
-    <li *ngFor="let tab of dynamicTabs" (click)="selectTab(tab)" [class.active]="tab.active">
-        <a href="javascript:void(0)">{{tab.title}} <span class="tab-close" *ngIf="tab.isCloseable" (click)="closeTab(tab)">x</span></a>
+    <li *ngFor="let tab of dynamicTabs" class="nav-item" (click)="selectTab(tab)">
+        <a href="javascript:void(0)" class="nav-link"  [ngClass]="{'active': tab.active}">{{tab.title}} 
+          <span class="tab-close" *ngIf="tab.isCloseable" (click)="closeTab(tab)">x</span>
+          </a>
       </li>
 </ul>
   </div>

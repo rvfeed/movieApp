@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.css']
 })
-export class TabComponent implements OnInit {
+export class TabComponent {
 @Input() id: number;
 @Input() name: string;
 description: string;
@@ -14,10 +14,8 @@ description: string;
   @Input() isCloseable = false;
   @Input() template;
   @Input() dataContext;
-  constructor() { }
+ 
 
-  ngOnInit() {
-    this.description = `Hello! this is ${name}`;
-  }
+ 
 
 }

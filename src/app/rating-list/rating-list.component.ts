@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ViewChild, 
-  Input, SimpleChanges } from '@angular/core';
+  Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import { MovieRating, SearchMovie } from "../lib/rating.class"
 import {MovieService } from "../services/movie.service";
 import {HttpClient} from '@angular/common/http';
@@ -17,7 +17,8 @@ export class RatingListComponent implements OnInit {
   sortBy : any[] = [{name: "Latest", value: "addedDate"}, {name: "Rating", value: "rating"}, {name: "movieName", value: "Movie Name"}];
    @Input('limit') ratingList:any = new SearchMovie({ limit: 5, sortedBy: this.sortBy[0].value,});;
   msg: any = {};
-  
+   @Output() editMovie : EventEmitter<MovieRating> = new EventEmitter<MovieRating>()
+  @Output() movieOut = new EventEmitter<any>();
   constructor(private movieSer: MovieService, 
     private http: HttpClient,
     private router: ActivatedRoute,

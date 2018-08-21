@@ -25,5 +25,5 @@
     <li><strong>Cast</strong></li>
     <li></li>
     </ul>
-  <app-rating *ngFor="let movie of movieList" on-deleteMovie="deleteMovie($event)" bind-movieList="movie"></app-rating>
+  <app-rating *ngFor="let movie of movieList"on-click="editMovie.emit(movie)" on-deleteMovie="deleteMovie($event)" bind-movieList="movie"></app-rating>
 </div>

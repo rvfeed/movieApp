@@ -16,6 +16,7 @@ import { LocalService } from '../services/storage/local.service';
 export class RatingComponent implements OnInit {
  @Input("movieList") movieDetails:MovieRating;
  @Output() deleteMovie : EventEmitter<MovieRating> = new EventEmitter<MovieRating>()
+ @Output() editMovie : EventEmitter<MovieRating> = new EventEmitter<MovieRating>()
  ratings: Number[];
  genres: String[];
  isEdit: boolean = true;

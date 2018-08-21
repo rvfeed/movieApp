@@ -30,25 +30,52 @@ currentTab: TabComponent;
   }
   selectTab(tab: TabComponent){
     console.log("asdfsdfsd");
-    this.tabs.forEach( tab =>  tab.active = false);
+    this.dynamicTabs.forEach( tab =>  tab.active = false);
+    this.tabs.toArray().forEach( tab =>  tab.active = false);
     tab.active = true;
     this.currentTab = tab;
   }
   openTab(title: string, template, data, isCloseable = false) {
      let comp = this.comc.resolveComponentFactory(TabComponent);
       console.log(this.dynamicTabPlaceholder)
-      let comRef = this.dynamicTabPlaceholder.viewContainer.createComponent(comp);
-      let instance : TabComponent = comRef.instance as TabComponent;
+      let comRef = this.dynamicTabPlaceholder.viewContainer;
+      let comRef1 = comRef.createComponent(comp);
+      let instance : TabComponent = comRef1.instance as TabComponent;
       instance.title = title;
-      console.log(template)
-    instance.template = template;
-    instance.dataContext = data;
-    instance.isCloseable = isCloseable;
-        this.dynamicTabs.push(comRef.instance as TabComponent);
+      console.log(instance)
+        instance.template = template;
+        instance.dataContext = data;
+        instance.isCloseable = isCloseable;
+        this.dynamicTabs.push(comRef1.instance as TabComponent);
     
     // set it active
-  //  this.selectTab(this.dynamicTabs[this.dynamicTabs.length - 1]);
+    this.selectTab(this.dynamicTabs[this.dynamicTabs.length - 1]);
    
+  }
+    closeTab(tab: TabComponent) {
+    for(let i=0; i<this.dynamicTabs.length;i++) {
+      if(this.dynamicTabs[i] === tab) {
+        // remove the tab from our array
+        this.dynamicTabs.splice(i,1);
+        
+        // destroy our dynamically created component again
+        let viewContainerRef = this.dynamicTabPlaceholder.viewContainer;
+        // let viewContainerRef = this.dynamicTabPlaceholder;
+        viewContainerRef.remove(i);
+        
+        // set tab index to 1st one
+        this.selectTab(this.tabs.first);
+        break;
+      }
+    }
+  }
+  
+  closeActiveTab() {
+    let activeTabs = this.dynamicTabs.filter((tab)=>tab.active);
+    if(activeTabs.length > 0)  {
+      // close the 1st active tab (should only be one at a time)
+      this.closeTab(activeTabs[0]);
+    }
   }
 
 }

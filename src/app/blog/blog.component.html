@@ -1,6 +1,6 @@
 <tabs>
   <tab bind-id="1" bind-name="'Movies'">
-    <app-rating-list></app-rating-list>
+    <app-rating-list (editMovie)="editMovie($event)"></app-rating-list>
   </tab>
   <tab bind-id="2" bind-name="'Add Movie'">
     <app-rating-form></app-rating-form>
@@ -8,7 +8,23 @@
   <tab bind-id="3" bind-name="'Menu2'">Menu 2</tab>
   <tab bind-id="4" bind-name="'Menu3'">Menu 3</tab>
 </tabs>
- <ng-template #movieEdit>
-      <app-rating-form></app-rating-form>
+ <ng-template let-movie="movie"  #movieEdit>
+      <app-rating-form [movie]="movie"></app-rating-form>
+    </ng-template>
+    <ng-template #about>
+      <p>
+        Hi, I hope this demo was useful to learn more about dynamic components
+        in Angular, in specific about <code>ViewContainerRef</code>,
+        <code>ComponentResolverFactory</code> etc.
+      </p>
+      <p>
+        Also check out the <a href="https://juristr.com/blog/2017/07/ng2-dynamic-tab-component/">according blog article</a>. You
+        may also want to read the <a href="https://juristr.com/blog/2016/02/learning-ng2-creating-tab-component/">article about
+        creating basic tabs with <code>@ContentChildren</code> and <code>@QueryList</code></a>.
+      </p>
+      <p>
+        Visit me on <a href="https://twitter.com/juristr">Twitter</a> or on <a href="https://juristr.com/blog">blog</a>.
+      </p>
     </ng-template>
 <button class="btn"(click)="addMovie()">Add New Movie</button>
+<button class="btn"(click)="openEdit()">Add Info</button>
