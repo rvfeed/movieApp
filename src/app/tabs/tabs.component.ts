@@ -64,7 +64,10 @@ currentTab: TabComponent;
         viewContainerRef.remove(i);
         
         // set tab index to 1st one
-        this.selectTab(this.tabs.first);
+        if(this.dynamicTabs.length)
+            this.selectTab(this.dynamicTabs[this.dynamicTabs.length-1]);
+          else
+            this.selectTab(this.tabs.first);
         break;
       }
     }
