@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {APP_CONFIG, IAppConfig} from "../app.config";
 import { map } from 'rxjs/operators/map';
 import { RouterState, ActivatedRoute, ParamMap, } from '@angular/router';
+
 @Component({
   selector: 'app-rating-list',
   templateUrl: './rating-list.component.html',
@@ -17,6 +18,7 @@ export class RatingListComponent implements OnInit {
   sortBy : any[] = [{name: "Latest", value: "addedDate"}, {name: "Rating", value: "rating"}, {name: "movieName", value: "Movie Name"}];
    @Input('limit') ratingList:any = new SearchMovie({ limit: 5, sortedBy: this.sortBy[0].value,});;
   msg: any = {};
+  isTabs: boolean = false;
    @Output() editMovie : EventEmitter<MovieRating> = new EventEmitter<MovieRating>()
   @Output() movieOut = new EventEmitter<any>();
   constructor(private movieSer: MovieService, 
@@ -42,7 +44,8 @@ export class RatingListComponent implements OnInit {
    
   }
 
-  deleteMovie(id){      
+  deleteMovie(id){   
+    console.log(id)
      this.movieSer
      .deleteMovie(id)
      .subscribe(

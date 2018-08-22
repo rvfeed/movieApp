@@ -22,10 +22,11 @@ export class RatingComponent implements OnInit {
  isEdit: boolean = true;
  msg: any = {};
  myForm:any = { isEdit: false};
+ @Input() isTabs: boolean = false;
 constructor(private movieSer: MovieService,
    private http: HttpClient,
    private localStr:  LocalService,
-    @Inject(APP_CONFIG) private config: IAppConfig,
+  @Inject(APP_CONFIG) private config: IAppConfig,
   @Inject(APP_CONSTANTS) private consts: DefaultValues ){
    
   }

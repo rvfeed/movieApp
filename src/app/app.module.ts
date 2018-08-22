@@ -29,6 +29,7 @@ import { TabsComponent } from './tabs/tabs.component';
 import { TabComponent } from './tab/tab.component';
 import { AppRatingFormModule} from './rating-form/rating-form.module';
 import { DynamicTabsDirective } from './dynamic-tabs.directive';
+import { ClickStopPropagation } from './click-stop-propagation.directive';
 let routes: Routes = [
   { path: '', redirectTo:'dashboard', pathMatch:'full'},
   {path: 'top5', component: Top5Component, canActivate: [LoggedInGuard] },
@@ -56,7 +57,8 @@ let routes: Routes = [
     FormElementsComponent,
     TabsComponent,
     TabComponent,
-    DynamicTabsDirective  
+    DynamicTabsDirective,
+    ClickStopPropagation  
     
   ],
   imports: [

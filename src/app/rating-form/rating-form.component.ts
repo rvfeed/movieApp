@@ -6,6 +6,7 @@ import {MovieService } from "../services/movie.service";
 import {HttpClient} from '@angular/common/http';
 import {APP_CONFIG, IAppConfig} from "../app.config";
 import {APP_CONSTANTS, DefaultValues} from "../app.constants";
+import {Observable} from 'rxjs/Observable'
 @Component({
   selector: 'app-rating-form',
   templateUrl: './rating-form.component.html',
@@ -51,8 +52,11 @@ isClicked: boolean = false;
     this.isClicked = true;
     if(!this.myForm.valid) 
         console.log("not valid!")
-
-    this.movieSer.addMovie(this.myForm.value)
+        let addOrEdit: Observable<any>;
+if(Object.keys(this.movie).length || false){
+addOrEdit = (Object.keys(this.movie).length)? this.movieSer.updateMovie(this.movie._id,this.myForm.value):this.movieSer.addMovie(this.myForm.value);
+}
+                addOrEdit
                 .subscribe( (res: any) => {
                     this.msg.success = res.success;
                     this.msg.message = res.message;

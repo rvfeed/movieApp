@@ -25,14 +25,14 @@ obsFun: any;
   }
   
   
- addMovie(movie: any) {    
+ addMovie(movie: any): Observable<any> {    
     let { cast, movieName, rating, director, genre } = movie;       
     return this.http
                 .post(this.config.apiEindPoint+"/addmovie",
                       {movie: { movieName, rating, director,
                        cast, genre, addedDate: Date.now()}}, {withCredentials: true})
   }
-  updateMovie(id, movie){    
+  updateMovie(id, movie): Observable<any>{    
     return this.http.put(this.config.apiEindPoint+"/movie/"+id, { movie }, {withCredentials: true} ) 
   }
   emitMovie(msg: MovieRating){
