@@ -33,9 +33,11 @@ export class LoginComponent implements OnInit {
                   .subscribe( (out : any) => {
                     if(out.success){
                       this.localStr.checkUser("in");
+                      this.localStr.isLoggedIn.next(true);
                       this.router.navigate(['/dashboard'])
                     }else{
                       this.localStr.checkUser("out");
+                      this.localStr.isLoggedIn.next(false);
                       this.message = "Login Failed"
                     }
                     

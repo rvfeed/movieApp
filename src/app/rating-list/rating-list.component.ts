@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {APP_CONFIG, IAppConfig} from "../app.config";
 import { map } from 'rxjs/operators/map';
 import { RouterState, ActivatedRoute, ParamMap, } from '@angular/router';
+import { LocalService } from '../services/storage/local.service';
 
 @Component({
   selector: 'app-rating-list',
@@ -19,15 +20,18 @@ export class RatingListComponent implements OnInit {
    @Input('limit') ratingList:any = new SearchMovie({ limit: 5, sortedBy: this.sortBy[0].value,});;
   msg: any = {};
   isTabs: boolean = false;
+  isLoggedIn: boolean = false;
    @Output() editMovie : EventEmitter<MovieRating> = new EventEmitter<MovieRating>()
   @Output() movieOut = new EventEmitter<any>();
-  constructor(private movieSer: MovieService, 
+  constructor(private movieSer: MovieService,
+  private localSer: LocalService,
     private http: HttpClient,
     private router: ActivatedRoute,
     @Inject(APP_CONFIG) private config: IAppConfig) {
      
    }  
   ngOnInit(){
+    this.localSer.isLoggedIn.subscribe( isIn => this.isLoggedIn = isIn );
     let search = this.router.snapshot.paramMap.get('searchText');
     if(search){
         this.ratingList = new SearchMovie({searchText: search});
@@ -35,7 +39,7 @@ export class RatingListComponent implements OnInit {
     }
     this.getMovies();
     this.movieSer.movieObs$.subscribe( (mov: MovieRating) => { 
-     this.movieList.unshift(mov);
+     this.getMovies();
     });
   
   }

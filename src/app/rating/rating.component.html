@@ -26,14 +26,14 @@
   </ng-template>
 <div *ngIf="isEdit else editTemp"> 
   <ul class="movie-list">
-   <li *ngIf="!isTabs"> <a  on-click="enableEdit(movieDetails?._id)"  class="fa fa-pencil">&nbsp;</a></li>
-   <li *ngIf="isTabs"> <a on-click="editMovie.emit()"  appClickStopPropagation class="fa fa-pencil">&nbsp;</a></li>
+   <li *ngIf="!isTabs && loggedIn"> <a  on-click="enableEdit(movieDetails?._id)"  class="fa fa-pencil">&nbsp;</a></li>
+   <li *ngIf="isTabs && loggedIn"> <a on-click="editMovie.emit()"  appClickStopPropagation class="fa fa-pencil">&nbsp;</a></li>
     <li>{{movieDetails?.movieName}}</li>
     <li>{{movieDetails?.genre}}</li>
     <li>{{movieDetails?.rating}}</li>
     <li>{{movieDetails?.director}}</li>
     <li>{{movieDetails?.cast}}</li>
-    <li><a  on-click="delete(movieDetails?._id)" appClickStopPropagation class="close" aria-label="Close">
+    <li *ngIf="loggedIn"><a  on-click="delete(movieDetails?._id)" appClickStopPropagation class="close" aria-label="Close">
   <span aria-hidden="true">&times;</span></a> </li>
   </ul>
   </div>

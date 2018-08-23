@@ -53,15 +53,14 @@ isClicked: boolean = false;
     if(!this.myForm.valid) 
         console.log("not valid!")
         let addOrEdit: Observable<any>;
-if(Object.keys(this.movie).length || false){
 addOrEdit = (Object.keys(this.movie).length)? this.movieSer.updateMovie(this.movie._id,this.myForm.value):this.movieSer.addMovie(this.myForm.value);
-}
+
                 addOrEdit
                 .subscribe( (res: any) => {
                     this.msg.success = res.success;
                     this.msg.message = res.message;
                     if(this.msg.success){
-                      this.movieSer.emitMovie(res.data);
+                      this.movieSer.emitMovie(this.myForm.value)                   
                       this.reset();                     
                     }
                 });     

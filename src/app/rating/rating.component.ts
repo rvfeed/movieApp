@@ -21,8 +21,10 @@ export class RatingComponent implements OnInit {
  genres: String[];
  isEdit: boolean = true;
  msg: any = {};
+ @Input("isLoggedIn") loggedIn: boolean = false;
  myForm:any = { isEdit: false};
  @Input() isTabs: boolean = false;
+ intId: any = 0;
 constructor(private movieSer: MovieService,
    private http: HttpClient,
    private localStr:  LocalService,
@@ -30,8 +32,7 @@ constructor(private movieSer: MovieService,
   @Inject(APP_CONSTANTS) private consts: DefaultValues ){
    
   }
-  ngOnInit() {    
-    console.log(this.consts.RATINGS)
+  ngOnInit() {
     this.ratings = this.consts.RATINGS;
     this.genres = this.consts.GENRES;
    }
@@ -39,7 +40,7 @@ constructor(private movieSer: MovieService,
   ngOnChanges(change: SimpleChanges){
     console.log("change", change)
   }
-  ngdoCheck(){ }
+  ngDoCheck(){}
 
   delete(id){
     console.log(id)
@@ -65,6 +66,7 @@ constructor(private movieSer: MovieService,
     this.isEdit = true; 
   }
   ngOnDistroy(){
+    clearInterval(this.intId);
     console.log("distroyed")
   }
 }
