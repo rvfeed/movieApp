@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Router, Routes, CanActivate}  from "@angular/router"
-import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { RequestOptions } from '@angular/http'
 import { ReactiveFormsModule,  FormsModule } from'@angular/forms';
 import { AppComponent } from './app.component';
 import { RatingComponent } from './rating/rating.component';
@@ -30,6 +31,8 @@ import { TabComponent } from './tab/tab.component';
 import { AppRatingFormModule} from './rating-form/rating-form.module';
 import { DynamicTabsDirective } from './dynamic-tabs.directive';
 import { ClickStopPropagation } from './click-stop-propagation.directive';
+import { AuthRequestOptions } from './lib/auth-request-options';
+import { MovieInterceptor} from "./lib/movie-interceptor.service";
 let routes: Routes = [
   { path: '', redirectTo:'dashboard', pathMatch:'full'},
   {path: 'top5', component: Top5Component, canActivate: [LoggedInGuard] },
@@ -72,7 +75,8 @@ let routes: Routes = [
   ],
   providers: [MovieService, UserService, LocalService, LoggedInGuard,
     {provide: APP_CONFIG, useValue: AppConfig},
-    {provide: APP_CONSTANTS, useValue: {RATINGS, GENRES}}
+    {provide: APP_CONSTANTS, useValue: {RATINGS, GENRES}},
+    {provide: HTTP_INTERCEPTORS, useClass: MovieInterceptor, multi: true}
   ],
   exports: [],
   bootstrap: [AppComponent],

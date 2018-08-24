@@ -21,7 +21,13 @@ export class LocalService {
     return sessionStorage.getItem("user")
   }
   set localUserName(user){
-    sessionStorage.setItem("user", user)
+    sessionStorage.setItem("user", user);
+  }
+  storeInSession(name, value){
+    sessionStorage.setItem(name, value)
+  }
+   getFromSession(name){
+    return sessionStorage.getItem(name);
   }
   checkUser(n:string){
     this.localUserName = n;

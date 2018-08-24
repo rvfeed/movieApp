@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
                     if(out.success){
                       this.localStr.checkUser("in");
                       this.localStr.isLoggedIn.next(true);
+                      this.localStr.storeInSession("sub-token", out.token)
                       this.router.navigate(['/dashboard'])
                     }else{
                       this.localStr.checkUser("out");
