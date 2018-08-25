@@ -29,6 +29,9 @@ export class LocalService {
    getFromSession(name){
     return sessionStorage.getItem(name);
   }
+  removeFromSession(name){
+    sessionStorage.removeItem(name);
+  }
   checkUser(n:string){
     this.localUserName = n;
     this.localObs.next(this.localUserName)

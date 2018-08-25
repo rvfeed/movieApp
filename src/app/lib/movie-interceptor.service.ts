@@ -10,8 +10,9 @@ import {LocalService} from '../services/storage/local.service'
 export class MovieInterceptor implements HttpInterceptor {
   constructor(private localSer: LocalService) { }
   intercept(req:HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-    
-    const reqClone = req.clone({setHeaders: { 'X-XSRF-TOKEN': this.localSer.getFromSession("sub-token")}})
+    console.log(req.body)
+    const reqClone = req.clone()
+    reqClone.body['sub-token'] = this.localSer.getFromSession("sub-token");
       return next.handle(reqClone);
   }
 
