@@ -25,6 +25,7 @@ export class RatingComponent implements OnInit {
  myForm:any = { isEdit: false};
  @Input() isTabs: boolean = false;
  intId: any = 0;
+ deleteSelcted: Array<string> = new Array<string>();
 constructor(private movieSer: MovieService,
    private http: HttpClient,
    private localStr:  LocalService,
@@ -61,6 +62,9 @@ constructor(private movieSer: MovieService,
     console.log("movieDetails",this.movieDetails)
     this.myForm = this.movieDetails;
     this.isEdit = false; 
+  }
+  selectDel(id){
+    this.deleteSelcted.push(id);
   }
   cancel(id){
     this.isEdit = true; 

@@ -33,6 +33,7 @@ import { DynamicTabsDirective } from './dynamic-tabs.directive';
 import { ClickStopPropagation } from './click-stop-propagation.directive';
 import { AuthRequestOptions } from './lib/auth-request-options';
 import { MovieInterceptor} from "./lib/movie-interceptor.service";
+import { MultiCheckDirective } from './directives/multi-check.directive';
 let routes: Routes = [
   { path: '', redirectTo:'dashboard', pathMatch:'full'},
   {path: 'top5', component: Top5Component, canActivate: [LoggedInGuard] },
@@ -61,7 +62,8 @@ let routes: Routes = [
     TabsComponent,
     TabComponent,
     DynamicTabsDirective,
-    ClickStopPropagation  
+    ClickStopPropagation,
+    MultiCheckDirective  
     
   ],
   imports: [

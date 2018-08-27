@@ -13,6 +13,9 @@
     <option *ngFor="let sort of sortBy" [value]="sort.value">{{sort.name}}</option>
   </select>
   </div>
+    <div class="col-2"> 
+      <button on-click="deleteSelcted()" class="btn">Delete</button>
+  </div>
     </div>  
   <div [ngClass]="{'alert-success':msg.success, 'alert-danger':msg.success === false}">{{msg.message}}</div>
   <br/>

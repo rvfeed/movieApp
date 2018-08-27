@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, ViewChild, 
-  Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ViewChildren
+  , QueryList,Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import { MovieRating, SearchMovie } from "../lib/rating.class"
 import {MovieService } from "../services/movie.service";
 import {HttpClient} from '@angular/common/http';
@@ -7,6 +7,7 @@ import {APP_CONFIG, IAppConfig} from "../app.config";
 import { map } from 'rxjs/operators/map';
 import { RouterState, ActivatedRoute, ParamMap, } from '@angular/router';
 import { LocalService } from '../services/storage/local.service';
+import { RatingComponent} from '../rating/rating.component'
 
 @Component({
   selector: 'app-rating-list',
@@ -21,8 +22,10 @@ export class RatingListComponent implements OnInit {
   msg: any = {};
   isTabs: boolean = false;
   isLoggedIn: boolean = false;
+  @ViewChildren(RatingComponent) ratingComp:QueryList<RatingComponent> ;
    @Output() editMovie : EventEmitter<MovieRating> = new EventEmitter<MovieRating>()
   @Output() movieOut = new EventEmitter<any>();
+  checkedMovies: any[] = [];
   constructor(private movieSer: MovieService,
   private localSer: LocalService,
     private http: HttpClient,
@@ -37,6 +40,20 @@ export class RatingListComponent implements OnInit {
         this.ratingList = new SearchMovie({searchText: search});
         console.log(this.ratingList)
     }
+    this.movieSer.behavObs$.subscribe(a => {
+      if(a.length){
+        if(this.checkedMovies.includes(a)){
+          this.checkedMovies.splice(this.checkedMovies.indexOf(a), 1)
+        }else{
+          this.checkedMovies.push(a);
+        }
+      
+      }
+        
+
+      console.log(this.checkedMovies)
+   //   this.checkedMovies = this.checkedMovies.filter( m => m.checked);
+    });
     this.getMovies();
     this.movieSer.movieObs$.subscribe( (mov: MovieRating) => { 
      this.getMovies();
@@ -47,7 +64,21 @@ export class RatingListComponent implements OnInit {
     
    
   }
-
+  ngAfterViewInit() {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+   
+  }
+deleteSelcted(){
+ this.movieSer.deleteSelectedMovies(this.checkedMovies)
+              .subscribe((res: any) => {
+                   let {success, message}  = res;
+                    this.msg = {success, message};
+                    if(message){
+                       this.getMovies();
+                    }  
+              })
+}
   deleteMovie(id){   
     console.log(id)
      this.movieSer
