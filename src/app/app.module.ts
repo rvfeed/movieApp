@@ -6,10 +6,12 @@ import { RequestOptions } from '@angular/http'
 import { ReactiveFormsModule,  FormsModule } from'@angular/forms';
 import { AppComponent } from './app.component';
 import { RatingComponent } from './rating/rating.component';
+import { UserComponent } from './user/user.component';
 import { RatingFormComponent } from './rating-form/rating-form.component';
 import {MovieService } from "./services/movie.service";
 import {APP_CONFIG, AppConfig} from "./app.config";
 import { RatingListComponent } from './rating-list/rating-list.component';
+import { UserListComponent } from './user-list/user-list.component';
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { APP_CONSTANTS, RATINGS, GENRES} from './app.constants';
@@ -34,6 +36,7 @@ import { ClickStopPropagation } from './click-stop-propagation.directive';
 import { AuthRequestOptions } from './lib/auth-request-options';
 import { MovieInterceptor} from "./lib/movie-interceptor.service";
 import { MultiCheckDirective } from './directives/multi-check.directive';
+import {AuthResolver} from "./services/resolve/resolve.class"
 let routes: Routes = [
   { path: '', redirectTo:'dashboard', pathMatch:'full'},
   {path: 'top5', component: Top5Component, canActivate: [LoggedInGuard] },
@@ -43,6 +46,7 @@ let routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'blog', component: BlogComponent},
   {path: 'logout', component: LogoutComponent},
+  {path: 'users', component: UserListComponent, resolve:{loggedIn: AuthResolver}},
   {path: '**', component: FileNotFoundComponent}
 ]
 @NgModule({
@@ -63,7 +67,9 @@ let routes: Routes = [
     TabComponent,
     DynamicTabsDirective,
     ClickStopPropagation,
-    MultiCheckDirective  
+    MultiCheckDirective,
+    UserComponent,
+    UserListComponent
     
   ],
   imports: [
@@ -75,7 +81,7 @@ let routes: Routes = [
     AppRatingFormModule,
     AppDashBoardModule    
   ],
-  providers: [MovieService, UserService, LocalService, LoggedInGuard,
+  providers: [MovieService, UserService, LocalService, LoggedInGuard, AuthResolver,
     {provide: APP_CONFIG, useValue: AppConfig},
     {provide: APP_CONSTANTS, useValue: {RATINGS, GENRES}},
     {provide: HTTP_INTERCEPTORS, useClass: MovieInterceptor, multi: true}

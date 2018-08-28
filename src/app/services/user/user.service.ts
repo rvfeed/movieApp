@@ -1,16 +1,41 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {APP_CONFIG, IAppConfig} from '../../app.config'
-
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { of } from 'rxjs/observable/of'
+import { User, SearchUser } from "../../lib/user.class"
 @Injectable()
 export class UserService {
-
-  constructor(private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig) { }
+headers: HttpHeaders;
+  constructor( private http: HttpClient, @Inject(APP_CONFIG) private config: IAppConfig) {
+   this.headers = new HttpHeaders({"x-dd": "true"});
+   }
   registration(user){
-    console.log({user})
-    return this.http.post(this.config.apiEindPoint+"/register", {user})
+    return this.http.post(this.config.apiEindPoint+"/register", {user}, {headers: this.headers})
   }
   login(user){
-    return this.http.post(this.config.apiEindPoint+"/login", {user}, {withCredentials: true});
+    return this.http.post(this.config.apiEindPoint+"/login", {user}, {headers: this.headers, withCredentials: true});
+  }
+  getUsers(){
+    return this.http.post(this.config.apiEindPoint+"/getUsers",{}, {withCredentials: true});
+  }
+    updateUser(id, user): Observable<any>{    
+    return this.http.put(this.config.apiEindPoint+"/user/"+id, { user }, {withCredentials: true} ) 
+  }
+  emitMovie(msg: User){
+      // return this.movieObs.next(msg);
+  }
+logout(){
+     this.localSer.checkUser("out");
+    this.localSer.removeFromSession("sub-token");
+    this.localSer.removeFromSession("user");
+    this.localSer.isLoggedIn.next(false);
+    this.router.navigate(['/login']);
+}
+  deleteUser(id){
+     return this.http.delete(this.config.apiEindPoint+"/user/"+id);
+  }
+  deleteSelectedUsers(movieIds){
+     return this.http.post(this.config.apiEindPoint+"/deleteSelectedUsers/", {movieIds}, {withCredentials: true});
   }
 }

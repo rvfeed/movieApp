@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="row">
+  <div class="col-1">
+  Show: </div>
+  <div class="col-2"><select class="form-control" on-change="getMovies()" bindon-ngModel="ratingList.limit">
+    <option *ngFor="let movNum of showNumOfMovies" [value]="movNum">{{movNum}}</option>
+  </select>
+  </div>
+  <div class="col-2">
+     Sort By:
+  </div>
+  <div class="col-2"> <select class="form-control" on-change="sortByFn()" bindon-ngModel="ratingList.sortBy">
+    <option *ngFor="let sort of sortBy" [value]="sort.value">{{sort.name}}</option>
+  </select>
+  </div>
+    <div class="col-2"> 
+      <button on-click="deleteSelcted()" class="btn">Delete</button>
+  </div>
+    </div>  
+  <div [ngClass]="{'alert-success':msg.success, 'alert-danger':msg.success === false}">{{msg.message}}</div>
+  <br/>
+   <ul class="movie-list" style="border: 1px #ccc solid;">
+    <li></li>
+    <li><strong>User Name</strong></li>
+    <li><strong>Email</strong></li>
+    <li></li>
+    </ul>
+    <!--on-click="editMovie.emit(movie)"-->  
+{{isLoggedIn}}
+  <app-user 
+    [isLoggedIn]="isLoggedIn"
+    *ngFor="let movie of movieList"
+    [isTabs]="isTabs"
+    (editMovie)="editMovie.emit(movie)"
+    on-deleteMovie="deleteMovie($event)"
+    bind-movieList="movie">
+  </app-user>
+</div>

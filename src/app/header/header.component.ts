@@ -35,9 +35,6 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(){
-    this.localSer.checkUser("out");
-    this.localSer.removeFromSession("sub-token");
-    this.localSer.isLoggedIn.next(false);
-    this.router.navigate(['/login']);
+    this.localSer.logout();
   }
 }

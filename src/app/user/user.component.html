@@ -1,0 +1,33 @@
+<div [ngClass]="{'alert-success':msg.success, 'alert-danger':msg.success === false}">
+  {{msg.message}}
+</div>
+<div class="row">
+<div class="card col" style= "text-align: left;">
+<ng-template #editTemp>
+  <div style="width: 100px" >
+    <a href="javascript:void(0)"  on-click="updateMovie(userDetails?._id)" appClickStopPropagation>save</a>
+    <a href="javascript:void(0)"  on-click="cancel()" appClickStopPropagation>cancel</a>
+  </div>
+   <ul class="movie-list">
+    <li></li>
+
+    <li><input type="text" name="username" bindon-ngModel="userDetails.username" value='{{userDetails?.username}}' /></li>
+
+    <li><input type="text" name="email" bindon-ngModel="userDetails.email" value='{{userDetails?.email}}' /></li>
+    <li><a href="javascript:void(0)">Change password</a></li>
+  </ul>
+
+  </ng-template>
+<div *ngIf="isEdit else editTemp"> 
+  <ul class="movie-list">
+    <li><input type="checkbox" appMultiCheck value="{{userDetails?._id}}" (click)="selectDel(userDetails?._id)" name="movieId"></li>
+    <li>{{userDetails?.username}}</li>
+    <li>{{userDetails?.email}}</li>
+    <li *ngIf="loggedIn"> <a  on-click="enableEdit(userDetails?._id)"  class="fa fa-pencil">&nbsp;</a></li>
+  
+    <li *ngIf="loggedIn"><a  on-click="delete(userDetails?._id)" appClickStopPropagation class="close" aria-label="Close">
+  <span aria-hidden="true">&times;</span></a> </li>
+  </ul>
+  </div>
+</div>
+</div>

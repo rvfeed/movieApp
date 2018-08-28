@@ -7,7 +7,6 @@ export class LoggedInGuard implements CanActivate {
   constructor(private local: LocalService) { }
   canActivate(){
    this.local.isLoggedIn.next(!!(this.local.localUserName));
-    return !!(this.local.localUserName);
-      
+    return !!(this.local.localUserName);      
   }
 }

@@ -19,6 +19,10 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="blog" routerLinkActive="active" href="javascript:void(0)">Blog</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="loggedIn" routerLink="users"
+             routerLinkActive="active" href="javascript:void(0)">Users</a>
+        </li>
         <li class="nav-item"> 
             <a class="nav-link" *ngIf="!loggedIn" routerLink="login" routerLinkActive="active" href="javascript:void(0)">Login</a>
           </li>
