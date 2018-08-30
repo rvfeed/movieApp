@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {StoreModule, ActionReducer, combineReducers } from "@ngrx/store"
+import { EffectsModule} from "@ngrx/effects"
 import { RouterModule, Router, Routes, CanActivate}  from "@angular/router"
 import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { RequestOptions } from '@angular/http'
@@ -36,8 +38,11 @@ import { ClickStopPropagation } from './click-stop-propagation.directive';
 import { AuthRequestOptions } from './lib/auth-request-options';
 import { MovieInterceptor} from "./lib/movie-interceptor.service";
 import { MultiCheckDirective } from './directives/multi-check.directive';
-import {AuthResolver} from "./services/resolve/resolve.class"
-
+import {AuthResolver} from "./services/resolve/resolve.class";
+import { movieReducer } from './store/reducer';
+import {loginState} from './store/intialState';
+import { MovieEffects} from './store/effects';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 let routes: Routes = [
   { path: '', redirectTo:'dashboard', pathMatch:'full'},
   {path: 'top5', component: Top5Component, canActivate: [LoggedInGuard] },
@@ -78,12 +83,16 @@ let routes: Routes = [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule,  
-    RouterModule.forRoot(routes, {useHash: true}),
+    HttpClientModule, 
+     StoreModule.forRoot(<any>{app: movieReducer, router: routerReducer}), 
+    RouterModule.forRoot(routes, {useHash: true}),   
     AppRatingFormModule,
-    AppDashBoardModule    
+    AppDashBoardModule,
+     StoreRouterConnectingModule.forRoot(),
+    EffectsModule.forRoot([ MovieEffects ])
+   
   ],
-  providers: [MovieService, UserService, LocalService, LoggedInGuard, AuthResolver,
+  providers: [MovieService, UserService, LocalService, LoggedInGuard, AuthResolver, MovieEffects,
     {provide: APP_CONFIG, useValue: AppConfig},
     {provide: APP_CONSTANTS, useValue: {RATINGS, GENRES}},
     {provide: HTTP_INTERCEPTORS, useClass: MovieInterceptor, multi: true}

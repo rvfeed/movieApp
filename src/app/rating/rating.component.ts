@@ -8,6 +8,8 @@ import { RatingFormComponent} from "../rating-form/rating-form.component";
 import { FormGroup,FormControl, Validators } from'@angular/forms';
 import {APP_CONSTANTS, DefaultValues} from "../app.constants";
 import { LocalService } from '../services/storage/local.service';
+import  {Store} from "@ngrx/store";
+import {getActions} from '../store/actions'
 @Component({
   selector: 'app-rating',
   templateUrl: './rating.component.html',
@@ -29,6 +31,7 @@ export class RatingComponent implements OnInit {
 constructor(private movieSer: MovieService,
    private http: HttpClient,
    private localStr:  LocalService,
+   private store: Store,
   @Inject(APP_CONFIG) private config: IAppConfig,
   @Inject(APP_CONSTANTS) private consts: DefaultValues ){
    
@@ -36,6 +39,15 @@ constructor(private movieSer: MovieService,
   ngOnInit() {
     this.ratings = this.consts.RATINGS;
     this.genres = this.consts.GENRES;
+    /* this.movieSer.updateMovie(id, this.myForm)
+                  .subscribe( (res: any) => {
+                    let {success, message}  = res;
+                      this.msg = {success, message};
+                      if(success){
+                        this.cancel(id)
+                      }
+                  }); */
+  this.store.select("app").subscribe(a => { console.log("hhhhhahahahhah")})                  
    }
 
   ngOnChanges(change: SimpleChanges){
@@ -48,15 +60,10 @@ constructor(private movieSer: MovieService,
     this.deleteMovie.emit(id);
   }
   updateMovie(id){
-    delete this.myForm["_id"];    
-    this.movieSer.updateMovie(id, this.myForm)
-                  .subscribe( (res: any) => {
-                    let {success, message}  = res;
-                      this.msg = {success, message};
-                      if(success){
-                        this.cancel(id)
-                      }
-                  });
+    delete this.myForm["_id"];
+    let editMovieAction = getActions("EDIT_MOVIE", this.myForm)
+    this.store.dispatch(editMovieAction);
+   
   }
   enableEdit(id){
     console.log("movieDetails",this.movieDetails)
