@@ -25,13 +25,7 @@ headers: HttpHeaders;
   emitMovie(msg: User){
       // return this.movieObs.next(msg);
   }
-logout(){
-     this.localSer.checkUser("out");
-    this.localSer.removeFromSession("sub-token");
-    this.localSer.removeFromSession("user");
-    this.localSer.isLoggedIn.next(false);
-    this.router.navigate(['/login']);
-}
+
   deleteUser(id){
      return this.http.delete(this.config.apiEindPoint+"/user/"+id);
   }

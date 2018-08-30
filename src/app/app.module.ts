@@ -37,6 +37,7 @@ import { AuthRequestOptions } from './lib/auth-request-options';
 import { MovieInterceptor} from "./lib/movie-interceptor.service";
 import { MultiCheckDirective } from './directives/multi-check.directive';
 import {AuthResolver} from "./services/resolve/resolve.class"
+
 let routes: Routes = [
   { path: '', redirectTo:'dashboard', pathMatch:'full'},
   {path: 'top5', component: Top5Component, canActivate: [LoggedInGuard] },
@@ -47,6 +48,7 @@ let routes: Routes = [
   {path: 'blog', component: BlogComponent},
   {path: 'logout', component: LogoutComponent},
   {path: 'users', component: UserListComponent, resolve:{loggedIn: AuthResolver}},
+   { path: 'lazy', loadChildren: 'app/lazy/lazy.module#LazyModule' },
   {path: '**', component: FileNotFoundComponent}
 ]
 @NgModule({

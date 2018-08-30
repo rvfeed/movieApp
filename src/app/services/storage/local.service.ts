@@ -8,7 +8,7 @@ export class LocalService {
   private localObs = new Subject<any>();
   public isLoggedIn = new BehaviorSubject(false)
 //  public replayObs = new BehaviorSubject<any>(3);
-
+  public storage: any;
 
   localObs$ = this.localObs.asObservable();
   constructor(private router: Router) {
@@ -16,21 +16,22 @@ export class LocalService {
      this.replayObs.next(3);
      setTimeout( () => this.replayObs.next(2), 3000);
    */
+  this.storage = localStorage;
    }
   get localUserName(){
-    return sessionStorage.getItem("user")
+    return this.storage.getItem("user")
   }
   set localUserName(user){
-    sessionStorage.setItem("user", user);
+    this.storage.setItem("user", user);
   }
   storeInSession(name, value){
-    sessionStorage.setItem(name, value)
+    this.storage.setItem(name, value)
   }
    getFromSession(name){
-    return sessionStorage.getItem(name);
+    return this.storage.getItem(name);
   }
   removeFromSession(name){
-    sessionStorage.removeItem(name);
+    this.storage.removeItem(name);
   }
   checkUser(n:string){
     this.localUserName = n;
