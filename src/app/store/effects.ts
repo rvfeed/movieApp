@@ -15,7 +15,7 @@ import 'rxjs/add/operator/withLatestFrom';
 export class MovieEffects{
     constructor(
         private userSer: UserService,
-        private store: Store,
+        private store: Store<any>,
         private actions: Actions
     ){
         

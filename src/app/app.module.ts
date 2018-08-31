@@ -40,9 +40,9 @@ import { MovieInterceptor} from "./lib/movie-interceptor.service";
 import { MultiCheckDirective } from './directives/multi-check.directive';
 import {AuthResolver} from "./services/resolve/resolve.class";
 import { movieReducer } from './store/reducer';
-import {loginState} from './store/intialState';
 import { MovieEffects} from './store/effects';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import { FileuploadComponent } from './fileupload/fileupload.component';
 let routes: Routes = [
   { path: '', redirectTo:'dashboard', pathMatch:'full'},
   {path: 'top5', component: Top5Component, canActivate: [LoggedInGuard] },
@@ -76,7 +76,8 @@ let routes: Routes = [
     ClickStopPropagation,
     MultiCheckDirective,
     UserComponent,
-    UserListComponent
+    UserListComponent,
+    FileuploadComponent
     
   ],
   imports: [

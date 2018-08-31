@@ -31,7 +31,7 @@ export class RatingComponent implements OnInit {
 constructor(private movieSer: MovieService,
    private http: HttpClient,
    private localStr:  LocalService,
-   private store: Store,
+   private store: Store<any>,
   @Inject(APP_CONFIG) private config: IAppConfig,
   @Inject(APP_CONSTANTS) private consts: DefaultValues ){
    
