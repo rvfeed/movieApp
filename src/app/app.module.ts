@@ -54,6 +54,7 @@ let routes: Routes = [
   {path: 'logout', component: LogoutComponent},
   {path: 'users', component: UserListComponent, resolve:{loggedIn: AuthResolver}},
    { path: 'lazy', loadChildren: 'app/lazy/lazy.module#LazyModule' },
+   {path: "file-upload", component: FileuploadComponent},
   {path: '**', component: FileNotFoundComponent}
 ]
 @NgModule({

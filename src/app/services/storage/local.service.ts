@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { Router } from "@angular/router";
-
+import { Store} from '@ngrx/store'
 
 @Injectable()
 export class LocalService {
@@ -11,7 +11,7 @@ export class LocalService {
   public storage: any;
 
   localObs$ = this.localObs.asObservable();
-  constructor(private router: Router) {
+  constructor(private router: Router, private store: Store) {
   /*   this.replayObs.next(1);  
      this.replayObs.next(3);
      setTimeout( () => this.replayObs.next(2), 3000);
@@ -42,6 +42,7 @@ export class LocalService {
     this.removeFromSession("sub-token");
     this.removeFromSession("user");
     this.isLoggedIn.next(false);
+    this.store.dispatch({type: "LOGOUT", payload: {}})
     this.router.navigate(['/login']);
   }
 }

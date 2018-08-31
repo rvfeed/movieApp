@@ -14,6 +14,9 @@ export function movieReducer(state: appState, action: Action ): appState{
         case 'EDIT_MOVIE':{
              return Object.assign({}, state, action.payload)
         }
+        case 'LOGOUT':{
+            return Object.assign({}, {}, {}})
+        }
         default:{
             return state;
         }
