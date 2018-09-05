@@ -49,7 +49,7 @@ obsFun: any;
         return this.http.post(this.config.apiEindPoint+"/movies", obj, {withCredentials: true});          
   }
   deleteMovie(id){
-     return this.http.delete(this.config.apiEindPoint+"/movie/"+id);
+     return this.http.delete(this.config.apiEindPoint+"/movie/"+id,  {withCredentials: true});
   }
   deleteSelectedMovies(movieIds){
      return this.http.post(this.config.apiEindPoint+"/deleteSelectedmovies/", {movieIds}, {withCredentials: true});

@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
                       this.localStr.checkUser("in");
                       this.localStr.isLoggedIn.next(true);
                       this.localStr.storeInSession("sub-token", out.token)
-                      this.router.navigate(['/dashboard'])
+                 //     this.router.navigate(['/dashboard'])
                     }else{
                       console.log(out)
                       this.localStr.checkUser("out");

@@ -1,0 +1,44 @@
+  <table st-table="table.rows" st-safe-src="rowCollection" class="table table-striped w-accounts-list-table">
+    <thead>
+  
+    <tr class="w-accounts-list-table-row head-row">
+
+        <!-- ngRepeat: rowHeader in table.rowHeaders --><th st-sort="name" 
+         class="w-accounts-list-table-cell head-cell  ng-binding ng-scope">Components</th><!-- end ngRepeat: rowHeader in table.rowHeaders --><th st-sort="" ng-repeat="rowHeader in table.rowHeaders" class="w-accounts-list-table-cell head-cell  ng-binding ng-scope">View</th><!-- end ngRepeat: rowHeader in table.rowHeaders --><th st-sort="" ng-repeat="rowHeader in table.rowHeaders" class="w-accounts-list-table-cell head-cell  ng-binding ng-scope">Edit</th><!-- end ngRepeat: rowHeader in table.rowHeaders --><th st-sort="" ng-repeat="rowHeader in table.rowHeaders" class="w-accounts-list-table-cell head-cell  ng-binding ng-scope">Add</th><!-- end ngRepeat: rowHeader in table.rowHeaders --><th st-sort="" ng-repeat="rowHeader in table.rowHeaders" class="w-accounts-list-table-cell head-cell  ng-binding ng-scope">Delete</th><!-- end ngRepeat: rowHeader in table.rowHeaders -->
+    </tr>
+
+    </thead>
+    <tbody>
+    <!-- ngRepeat: row in table.rows --><tr *ngFor = "let role of roles" class="w-accounts-list-table-row body-row ng-scope">
+        <td class="w-accounts-list-table-cell body-cell ng-binding" >{{role | titlecase}}</td>
+        <td>
+            <label class="e-cb">
+                <input class="e-cb-in ng-pristine ng-untouched ng-valid" name="view" [(ngModel)]="roleAccess[role].view" [checked]="roleAccess[role]?.view" value="view" (click) = "changeAccess($event)" type="checkbox">
+                <span class="e-cb-icon"></span>
+            </label>
+        </td>
+        <td>
+            <label class="e-cb">
+                <input class="e-cb-in ng-pristine ng-untouched ng-valid" name="edit" [(ngModel)]="roleAccess[role].edit"  [checked]="roleAccess[role]?.edit" value="edit" (click) = "changeAccess($event)" type="checkbox"  >
+                <span class="e-cb-icon"></span>
+            </label>
+        </td>
+        <td>
+            <label class="e-cb">
+                <input class="e-cb-in ng-pristine ng-untouched ng-valid" name="add" [(ngModel)]="roleAccess[role].add"  value="add" [checked]="roleAccess[role]?.add" (click) = "changeAccess($event)" type="checkbox" >
+                <span class="e-cb-icon"></span>
+            </label>
+        </td>
+        <td>
+            <label class="e-cb">
+                <input class="e-cb-in ng-pristine ng-untouched ng-valid" value="delete" [(ngModel)]="roleAccess[role].delete"  [checked]="roleAccess[role]?.delete" value="delete" (click) = "changeAccess($event)" type="checkbox" >
+                <span class="e-cb-icon"></span>
+            </label>
+        </td>
+    </tr><!-- end ngRepeat: row in table.rows -->
+
+    </tbody>
+    <tfoot>
+
+    </tfoot>
+</table>

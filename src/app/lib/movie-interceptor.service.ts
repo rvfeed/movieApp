@@ -21,8 +21,10 @@ export class MovieInterceptor implements HttpInterceptor {
        return next.handle(req.clone({headers: headers}))
     }
     
-    const reqClone = req.clone()
-    reqClone.body['sub-token'] = this.localSer.getFromSession("sub-token");
+    let reqClone = req.clone()
+    if(reqClone.body)
+     reqClone.body['sub-token'] = this.localSer.getFromSession("sub-token");
+
       return next.handle(reqClone)
                     .catch( (err: HttpErrorResponse): Observable<any> => {
                     if(err.status == 403){

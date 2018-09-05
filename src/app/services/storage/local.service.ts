@@ -11,7 +11,7 @@ export class LocalService {
   public storage: any;
 
   localObs$ = this.localObs.asObservable();
-  constructor(private router: Router, private store: Store) {
+  constructor(private router: Router, private store: Store<any>) {
   /*   this.replayObs.next(1);  
      this.replayObs.next(3);
      setTimeout( () => this.replayObs.next(2), 3000);

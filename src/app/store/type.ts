@@ -1,7 +1,7 @@
 import { MovieRating} from '../lib/rating.class'
 import {RouterAction} from '@ngrx/router-store';
-
-export type appState = { type: string, payload: any}
+type payload = { filter: any, movies: MovieRating[]}
+export type appState = { type: string, payload: payload}
 export type LogInForm = { username: string;  password: string; }
 export type State = { app: appState }
 export type LOGIN = {type: string, payload: LogInForm}

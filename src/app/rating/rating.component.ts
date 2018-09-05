@@ -47,7 +47,7 @@ constructor(private movieSer: MovieService,
                         this.cancel(id)
                       }
                   }); */
-  this.store.select("app").subscribe(a => { console.log("hhhhhahahahhah")})                  
+  //this.store.select(store => store.app).subscribe(a => { console.log("hhhhhahahahhah")})                  
    }
 
   ngOnChanges(change: SimpleChanges){
@@ -63,7 +63,6 @@ constructor(private movieSer: MovieService,
     delete this.myForm["_id"];
     let editMovieAction = getActions("EDIT_MOVIE", this.myForm)
     this.store.dispatch(editMovieAction);
-   
   }
   enableEdit(id){
     console.log("movieDetails",this.movieDetails)

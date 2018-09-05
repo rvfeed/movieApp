@@ -7,7 +7,10 @@ import {APP_CONFIG, IAppConfig} from "../app.config";
 import { map } from 'rxjs/operators/map';
 import { RouterState, ActivatedRoute, ParamMap, } from '@angular/router';
 import { LocalService } from '../services/storage/local.service';
-import { RatingComponent} from '../rating/rating.component'
+import { RatingComponent} from '../rating/rating.component';
+import {Store} from '@ngrx/store';
+import { getActions} from '../store/actions';
+import { } from '../store/reducer';
 
 @Component({
   selector: 'app-rating-list',
@@ -18,7 +21,7 @@ export class RatingListComponent implements OnInit {
   movieList: MovieRating[] = [];
   showNumOfMovies : Number[] = [5,10,20,30];
   sortBy : any[] = [{name: "Latest", value: "addedDate"}, {name: "Rating", value: "rating"}, {name: "movieName", value: "Movie Name"}];
-   @Input('limit') ratingList:any = new SearchMovie({ limit: 5, sortedBy: this.sortBy[0].value,});;
+   @Input('limit') ratingList:any = new SearchMovie({ limit: 5, sortedBy: this.sortBy[0].value});;
   msg: any = {};
   isTabs: boolean = false;
   isLoggedIn: boolean = false;
@@ -30,6 +33,7 @@ export class RatingListComponent implements OnInit {
   private localSer: LocalService,
     private http: HttpClient,
     private router: ActivatedRoute,
+    private store: Store<any>,
     @Inject(APP_CONFIG) private config: IAppConfig) {
      
    }  
@@ -49,15 +53,13 @@ export class RatingListComponent implements OnInit {
         }
       
       }
-        
+       this.store.select("app").subscribe( result => { console.log(result); this.movieList = result.movies}) 
 
       console.log(this.checkedMovies)
    //   this.checkedMovies = this.checkedMovies.filter( m => m.checked);
     });
     this.getMovies();
-    this.movieSer.movieObs$.subscribe( (mov: MovieRating) => { 
-     this.getMovies();
-    });
+
   
   }
   ngOnChanges(change: SimpleChanges){
@@ -70,6 +72,7 @@ export class RatingListComponent implements OnInit {
    
   }
 deleteSelcted(){
+ 
  this.movieSer.deleteSelectedMovies(this.checkedMovies)
               .subscribe((res: any) => {
                    let {success, message}  = res;
@@ -79,9 +82,11 @@ deleteSelcted(){
                     }  
               })
 }
-  deleteMovie(id){   
+  deleteMovie(id){ 
+     const actionState = getActions("DELETE_MOVIE", this.movieList.filter(movie => movie._id == id));
+this.store.dispatch(actionState);
     console.log(id)
-     this.movieSer
+/*     this.movieSer
      .deleteMovie(id)
      .subscribe(
                (res: any) => {                    
@@ -91,17 +96,11 @@ deleteSelcted(){
                        this.getMovies();
                     }                  
                 });
+                */
   }
   getMovies(){
- this.movieSer.getMovies(this.ratingList)    
-                  .subscribe((movie: MovieRating[]) => {
-                      this.movieList = [];
-                      movie.map( mov =>  this.movieList.push(
-                        new MovieRating(mov.movieName,
-                           mov.rating, mov.director, mov.cast, mov.genre, mov._id)
-                      )
-                  )
-            });
+    const getMovies = getActions("LOAD_MOVIES", {filters: this.ratingList});
+    this.store.dispatch(getMovies);
   }
   sortByFn(){   
    this.getMovies();

@@ -43,6 +43,7 @@ import { movieReducer } from './store/reducer';
 import { MovieEffects} from './store/effects';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { FileuploadComponent } from './fileupload/fileupload.component';
+import { AdminModule} from './admin/admin.module';
 let routes: Routes = [
   { path: '', redirectTo:'dashboard', pathMatch:'full'},
   {path: 'top5', component: Top5Component, canActivate: [LoggedInGuard] },
@@ -90,6 +91,7 @@ let routes: Routes = [
     RouterModule.forRoot(routes, {useHash: true}),   
     AppRatingFormModule,
     AppDashBoardModule,
+    AdminModule,
      StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([ MovieEffects ])
    
