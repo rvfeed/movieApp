@@ -4,7 +4,7 @@ import { HttpClient} from '@angular/common/http'
 @Injectable()
 export class AclService {
    _acl = {};
-   _remote ="http://localhost:9090"
+   _remote ="http://localhost:9090/api/v1"
 isLoggedInUser = user => true
   constructor(private http: HttpClient) {
     this.acl = {

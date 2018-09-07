@@ -44,6 +44,7 @@ import { MovieEffects} from './store/effects';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { FileuploadComponent } from './fileupload/fileupload.component';
 import { AdminModule} from './admin/admin.module';
+import { WallModule } from './wall-module/app.wallModule'
 let routes: Routes = [
   { path: '', redirectTo:'dashboard', pathMatch:'full'},
   {path: 'top5', component: Top5Component, canActivate: [LoggedInGuard] },
@@ -86,18 +87,19 @@ let routes: Routes = [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule, 
+    HttpClientModule,
+    WallModule,
      StoreModule.forRoot(<any>{app: movieReducer, router: routerReducer}), 
     RouterModule.forRoot(routes, {useHash: true}),   
     AppRatingFormModule,
     AppDashBoardModule,
     AdminModule,
-     StoreRouterConnectingModule.forRoot(),
+    StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([ MovieEffects ])
    
   ],
   providers: [MovieService, UserService, LocalService, LoggedInGuard, AuthResolver, MovieEffects,
-    {provide: APP_CONFIG, useValue: AppConfig},
+    {provide: APP_CONFIG, useClass: AppConfig},
     {provide: APP_CONSTANTS, useValue: {RATINGS, GENRES}},
     {provide: HTTP_INTERCEPTORS, useClass: MovieInterceptor, multi: true}
   ],

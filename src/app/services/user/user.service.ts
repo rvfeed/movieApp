@@ -11,10 +11,10 @@ headers: HttpHeaders;
    this.headers = new HttpHeaders({"x-dd": "true"});
    }
   registration(user){
-    return this.http.post(this.config.apiEindPoint+"/register", {user}, {headers: this.headers})
+    return this.http.post(this.config.staticEndPoint+"/register", {user}, {headers: this.headers})
   }
   login(user){
-    return this.http.post(this.config.apiEindPoint+"/login", {user}, {headers: this.headers, withCredentials: true});
+    return this.http.post(this.config.staticEndPoint+"/login", {user}, {headers: this.headers, withCredentials: true});
   }
   getUsers(){
     return this.http.post(this.config.apiEindPoint+"/getUsers",{}, {withCredentials: true});

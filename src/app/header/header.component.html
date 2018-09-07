@@ -33,9 +33,13 @@
           <li class="nav-item"> 
             <a class="nav-link" routerLink="acl" routerLinkActive="active" href="javascript:void(0)">Admin</a>
           </li>
+          <li class="nav-item"> 
+            <a class="nav-link" routerLink="post" routerLinkActive="active" href="javascript:void(0)">Post</a>
+          </li>
         <li class="nav-item"> 
             <a class="nav-link" *ngIf="!loggedIn" routerLink="login" routerLinkActive="active" href="javascript:void(0)">Login</a>
           </li>
+       
         <li class="nav-item">
             <a class="nav-link" *ngIf="loggedIn" on-click="logout()" >logout</a>
           </li>
