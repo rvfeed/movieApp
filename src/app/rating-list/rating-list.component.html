@@ -29,5 +29,5 @@
     <li></li>
     </ul>
     <!--on-click="editMovie.emit(movie)"-->    
-  <app-rating [isLoggedIn]="isLoggedIn" *ngFor="let movie of movieList" [isTabs]="isTabs" (editMovie)="editMovie.emit(movie)" on-deleteMovie="deleteMovie($event)" bind-movieList="movie"></app-rating>
+  <app-rating *ngFor="let movie of movieList" [isTabs]="isTabs" (editMovie)="editMovie.emit(movie)" on-deleteMovie="deleteMovie($event)" bind-movieList="movie"></app-rating>
 </div>

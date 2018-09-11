@@ -26,15 +26,15 @@ export class RatingListComponent implements OnInit {
   isTabs: boolean = false;
   isLoggedIn: boolean = false;
   @ViewChildren(RatingComponent) ratingComp:QueryList<RatingComponent> ;
-   @Output() editMovie : EventEmitter<MovieRating> = new EventEmitter<MovieRating>()
+  @Output() editMovie : EventEmitter<MovieRating> = new EventEmitter<MovieRating>()
   @Output() movieOut = new EventEmitter<any>();
   checkedMovies: any[] = [];
   constructor(private movieSer: MovieService,
-  private localSer: LocalService,
-    private http: HttpClient,
-    private router: ActivatedRoute,
-    private store: Store<any>,
-    @Inject(APP_CONFIG) private config: IAppConfig) {
+              private localSer: LocalService,
+              private http: HttpClient,
+              private router: ActivatedRoute,
+              private store: Store<any>,
+              @Inject(APP_CONFIG) private config: IAppConfig) {
      
    }  
   ngOnInit(){

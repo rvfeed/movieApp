@@ -23,7 +23,7 @@ export class RatingComponent implements OnInit {
  genres: String[];
  isEdit: boolean = true;
  msg: any = {};
- @Input("isLoggedIn") loggedIn: boolean = false;
+ loggedIn: boolean = false;
  myForm:any = { isEdit: false};
  @Input() isTabs: boolean = false;
  intId: any = 0;
@@ -39,6 +39,7 @@ constructor(private movieSer: MovieService,
   ngOnInit() {
     this.ratings = this.consts.RATINGS;
     this.genres = this.consts.GENRES;
+    this.localStr.isLoggedIn.subscribe( isloggedIn => this.loggedIn = isloggedIn)
     /* this.movieSer.updateMovie(id, this.myForm)
                   .subscribe( (res: any) => {
                     let {success, message}  = res;

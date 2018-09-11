@@ -5,8 +5,7 @@ export function movieReducer(state: any = {}, action: Action ): any{
         case 'LOGIN':{            
             return Object.assign({}, state, action.payload)
         }
-        case 'LOGIN_SUCCESS':{
-            console.log( action.payload)
+        case 'LOGIN_SUCCESS':{          
              return Object.assign({}, state, action.payload)
         }
         case 'LOGIN_FAILURE':{          

@@ -18,11 +18,10 @@ export class HeaderComponent implements OnInit {
               private localSer: LocalService) { }
 
   ngOnInit() {
-    this.loggedIn = this.localSer.localUserName == "in";
-    this.localSer.localObs$
-                 .subscribe( user => {
-                   console.log(user == "in")
-                  this.loggedIn = user == "in";
+ //   this.loggedIn = this.localSer.localUserName == "in";
+    this.localSer.isLoggedIn
+                 .subscribe( isLoggedin => {
+                  this.loggedIn = isLoggedin;
                  })     
     
     this.searchForm = new FormGroup({

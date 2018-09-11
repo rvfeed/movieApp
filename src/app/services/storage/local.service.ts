@@ -6,7 +6,7 @@ import { Store} from '@ngrx/store'
 @Injectable()
 export class LocalService {
   private localObs = new Subject<any>();
-  public isLoggedIn = new BehaviorSubject(false)
+  public isLoggedIn;
 //  public replayObs = new BehaviorSubject<any>(3);
   public storage: any;
 
@@ -17,6 +17,7 @@ export class LocalService {
      setTimeout( () => this.replayObs.next(2), 3000);
    */
   this.storage = localStorage;
+  this.isLoggedIn = new BehaviorSubject(!!this.getFromSession("user"))
    }
   get localUserName(){
     return this.storage.getItem("user")

@@ -3,6 +3,7 @@ import { HttpInterceptor,
          HttpEvent,
          HttpRequest,
          HttpHandler,
+         HttpParams,
         HttpResponse,
       HttpErrorResponse } from "@angular/common/http";
 import { Router } from '@angular/router';
@@ -21,9 +22,14 @@ export class MovieInterceptor implements HttpInterceptor {
        return next.handle(req.clone({headers: headers}))
     }
     
-    let reqClone = req.clone()
-    if(reqClone.body)
-     reqClone.body['sub-token'] = this.localSer.getFromSession("sub-token");
+    let reqClone = req.clone();
+    
+  
+    if(reqClone.body){
+      reqClone.body['sub-token'] = this.localSer.getFromSession("sub-token");
+      reqClone.body['user'] = this.localSer.getFromSession("user");
+    }
+    
 
       return next.handle(reqClone)
                     .catch( (err: HttpErrorResponse): Observable<any> => {

@@ -25,11 +25,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
      this.store.select("app").subscribe((out : any) => {
+       console.log(out)
           if(out && out.success){
-                      this.localStr.checkUser("in");
+            console.log("login")
+                      this.localStr.checkUser(out.user.username);
                       this.localStr.isLoggedIn.next(true);
                       this.localStr.storeInSession("sub-token", out.token)
-                 //     this.router.navigate(['/dashboard'])
+                   //   this.router.navigate(['/movies'])
                     }else{
                       console.log(out)
                       this.localStr.checkUser("out");

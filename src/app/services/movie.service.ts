@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {APP_CONFIG, IAppConfig} from "../app.config";
 import { Observable, BehaviorSubject } from 'rxjs';
 import { of } from 'rxjs/observable/of'
+import { LocalService } from './storage/local.service'
 @Injectable()
 export class MovieService {  
   private companyObs = new Subject<MovieRating>();
@@ -19,7 +20,7 @@ checkMovies: any[] = [];
 obsFun: any;
   constructor(private http: HttpClient,
     @Inject(APP_CONFIG) private config: IAppConfig,
-    
+    private localSer: LocalService
   ) {
   this.testObservable(1)
   this.testPromise(2);
@@ -49,7 +50,8 @@ obsFun: any;
         return this.http.post(this.config.apiEindPoint+"/movies", obj, {withCredentials: true});          
   }
   deleteMovie(id){
-     return this.http.delete(this.config.apiEindPoint+"/movie/"+id,  {withCredentials: true});
+  
+     return this.http.delete(this.config.apiEindPoint+"/movie/"+id+"?sub-token="+this.localSer.getFromSession("sub-token"),  {withCredentials: true});
   }
   deleteSelectedMovies(movieIds){
      return this.http.post(this.config.apiEindPoint+"/deleteSelectedmovies/", {movieIds}, {withCredentials: true});
