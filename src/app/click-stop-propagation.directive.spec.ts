@@ -1,8 +1,8 @@
-import { ClickStopPropagationDirective } from './click-stop-propagation.directive';
+import { ClickStopPropagation } from './click-stop-propagation.directive';
 
 describe('ClickStopPropagationDirective', () => {
   it('should create an instance', () => {
-    const directive = new ClickStopPropagationDirective();
+    const directive = new ClickStopPropagation();
     expect(directive).toBeTruthy();
   });
 });

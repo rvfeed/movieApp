@@ -53,7 +53,8 @@ export class RatingListComponent implements OnInit {
         }
       
       }
-       this.store.select("app").subscribe( result => { console.log(result); this.movieList = result.movies}) 
+       this.store.select("app").subscribe( result => { 
+       if(result)  this.movieList = result.movies}) 
 
       console.log(this.checkedMovies)
    //   this.checkedMovies = this.checkedMovies.filter( m => m.checked);
@@ -99,6 +100,7 @@ this.store.dispatch(actionState);
                 */
   }
   getMovies(){
+   // console.log("hiiiiiiiiiiiiiiiiiiiiiiii")
     const getMovies = getActions("LOAD_MOVIES", {filters: this.ratingList});
     this.store.dispatch(getMovies);
   }

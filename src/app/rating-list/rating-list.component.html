@@ -2,7 +2,8 @@
   <div class="row">
   <div class="col-1">
   Show: </div>
-  <div class="col-2"><select class="form-control" on-change="getMovies()" bindon-ngModel="ratingList.limit">
+  <div class="col-2"><select class="form-control" on-change="getMovies()"
+     bindon-ngModel="ratingList.limit">
     <option *ngFor="let movNum of showNumOfMovies" [value]="movNum">{{movNum}}</option>
   </select>
   </div>
@@ -29,5 +30,7 @@
     <li></li>
     </ul>
     <!--on-click="editMovie.emit(movie)"-->    
-  <app-rating *ngFor="let movie of movieList" [isTabs]="isTabs" (editMovie)="editMovie.emit(movie)" on-deleteMovie="deleteMovie($event)" bind-movieList="movie"></app-rating>
+  <app-rating *ngFor="let movie of movieList" [isTabs]="isTabs"
+   (editMovie)="editMovie.emit(movie)" on-deleteMovie="deleteMovie($event)"
+    bind-movieList="movie"></app-rating>
 </div>

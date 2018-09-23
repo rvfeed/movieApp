@@ -1,15 +1,19 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { MovieInterceptorService } from './movie-interceptor.service';
+import { MovieInterceptor } from './movie-interceptor.service';
+import { LocalService } from '../services/storage/local.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule, Store } from '@ngrx/store';
 
 describe('MovieInterceptorService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MovieInterceptorService]
+      imports: [RouterTestingModule, StoreModule.forRoot({})],
+      providers: [MovieInterceptor, Store, LocalService]
     });
   });
 
-  it('should be created', inject([MovieInterceptorService], (service: MovieInterceptorService) => {
+  it('should be created', inject([MovieInterceptor], (service: MovieInterceptor) => {
     expect(service).toBeTruthy();
   }));
 });

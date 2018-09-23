@@ -13,9 +13,11 @@ import { NgcontentComponent} from '../ngcontent/ngcontent.component';
 import { FormElementsModule} from '../form-elements/form-elements.module';
 
 @NgModule({
-    imports: [ CommonModule, FormsModule,AppDashBoardRoutingModule, ReactiveFormsModule, 
+    imports: [ CommonModule, FormsModule,AppDashBoardRoutingModule,
+         ReactiveFormsModule, 
     AppRatingFormModule, FormElementsModule],
-    declarations: [DashboardComponent, NgcontentComponent, Child1Component, Child2Component, Child3Component],    
+    declarations: [DashboardComponent, 
+        NgcontentComponent, Child1Component, Child2Component, Child3Component],    
     providers: []
 })
 export class AppDashBoardModule{

@@ -22,7 +22,7 @@ currentTab: TabComponent;
   ngOnInit() {}
   ngAfterContentInit(){
       console.log(this.tabs.filter( tab => true));
-      let activeTabs = this.tabs.filter( tab => tab.active);
+      let activeTabs = this.tabs.filter( (tab:any = {}) => tab.active);
       if(!activeTabs.length){
         this.selectTab(this.tabs.first)
       }
@@ -32,7 +32,7 @@ currentTab: TabComponent;
     console.log("asdfsdfsd");
     this.dynamicTabs.forEach( tab =>  tab.active = false);
     this.tabs.toArray().forEach( tab =>  tab.active = false);
-    tab.active = true;
+    if(tab) tab.active = true;
     this.currentTab = tab;
   }
   openTab(title: string, template, data, isCloseable = false) {

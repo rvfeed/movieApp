@@ -1,10 +1,12 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { AclService } from './acl.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AclService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports:[HttpClientTestingModule],
       providers: [AclService]
     });
   });
